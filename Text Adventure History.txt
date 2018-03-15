@@ -1,0 +1,147 @@
+#Text Adventure
+
+
+
+Inventário
+	[1] ..... 
+	[2]	.....
+	[3]	.....
+
+	Combinar itens
+	[ ]+[ ] = [ ] 
+ 
+
+
+Cena 01
+	Quando você se dá conta está em um lugar totalmente diferente do acostumado, 
+	não se lembra como foi parar lá e muito menos onde está, tudo é muito escuro,
+	você carrega apenas uma mochila nas costas.
+	
+
+	[A] Andar para Frente.
+		{Cena 02}
+
+	[V] Ver Mochila.
+		{Inventário}
+
+
+Cena 02
+	Você não consigue ver nada a frente !, você começa a se apavorar e sua respiração 
+	se torna mais ofegante, quando de repente você escuta barulho de galhos quebrando
+	então você decide... 
+	
+
+	[A] Andar para Frente com caltela.
+		{Cena 03}
+
+	[B] Correr para Frente.
+		{Cena 04}
+
+	[C] Andar para Esquerda e se Espreitar nos arbustos.
+		{Cena 05]}
+
+	[V] Ver Mochila.
+		{Inventário}
+
+
+Cena 03
+	Você anda com cautela para frente porem é surpreendido pelas costas por uma 
+	criatura indescritivél e apavorante, aos berros ela te ataca {vida -4}, com 
+	seu corpo ferido você decide...
+	
+	
+	[A] Correr para Frente.
+		{Cena 04}
+
+	[B] Enfrentar o Monstro.
+		{Cena 07}
+
+	[V] Ver mochila.
+		{Inventário}
+
+
+Cena 04
+	Você decide correr para frente com medo, desviando de arbustos e árvores que mal 
+	podiam serem vistas no escuro, até que você desliza e cai de um barranco.
+	{vida -1}. Atordoado você se levanta e observa uma luz em meio à escuridão.
+
+
+	[A] Ir até a Luz.
+		{Cena 08}
+
+	[V] Ver Mochila.
+		{Inventário}
+
+
+Cena 05
+	Você decide ficar espreitado nos arbustos, quando uma criatura assombrosa passa diante
+	de você, porém é impossível distiguila de um animal e um humano. Apavorado você espera a
+	criatura se perder em meio à escuridão. Então você se depara com uma luz em meio à escuridão.
+
+	[A] Ir até a Luz.
+		{Cena 08}
+
+	[V] Ver Mochila.
+		{Inventário}
+
+Cena 06 
+	Nada acontece ...
+
+
+Cena 07
+	Você morreu destroçado pelo monstro !	
+				GAME OVER !
+	dica: combate corpo a corpo é morte certa !
+
+
+Cena 08
+	A cada passo que você se aproxima da luz, percebe que se trata de uma simples casa. Você para
+	em frente e decide ...
+
+	[A] Bater na Porta.
+		{Cena 06}
+		
+	[B] Vasculhar em Volta da Casa.
+		{Cena 09}
+
+	[C] Tentar Abrir a Porta.
+		{Cena 06}
+
+	[V] Ver Mochila.
+		{Inventário}
+
+
+Cena 09
+	Ao vasculhar a casa você percebe uma caixa de correrios e uma oficina na garagem com as portas abertas.
+	Você decide ....
+
+	[A] Ir para Garagem.
+		{Cena 10}
+
+	[B] Ir para a Caixa de Correios.
+		{Cena 11}
+
+	[C] Voltar para a Porta da Casa.
+		{Cena 13}
+
+	[V] Ver Mochila.
+		{Inventário}
+
+
+Cena 10
+	Ao chegar na garagem você começa a vasculhar e encontra um pedacinho de arame ...
+
+	[A] Pegar Arame; (*se ja foi pego entao nao mostrar opção).
+
+	[B] Voltar para Porta da Casa.
+		{Cena 13}
+
+	[C] Continuar Vasculhando aos arredores da casa.
+		{Cena 09}
+
+	[V] Ver Mochila.
+		{Inventário}
+
+Cena 11 
+	cxa de correio pegar clip de papel
+	arame + clip = porta aberta.
