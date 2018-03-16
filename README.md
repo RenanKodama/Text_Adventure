@@ -8,6 +8,6 @@ Descrição:
 
 
 
-Links Úteis 
+Links Úteis:
 
     https://dlang.org/spec/class.html
