@@ -10,7 +10,8 @@ Inventário
 	Combinar itens
 	[ ]+[ ] = [ ] [itens combinados são removidos do invetário]
  		
-
+	[9] Voltar
+	
 	ITENS {
 		Cliper de Papal 		
 		Pedaço de Arame 		
@@ -22,7 +23,7 @@ Inventário
 		Muda
 	}
 	
-	[9] Voltar
+
 --------------------------------------------------------------------------------------------------
 
 Cena 01
