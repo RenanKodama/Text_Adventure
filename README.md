@@ -5,5 +5,6 @@ Descrição:
   DMD para criar o executável.
 
 
-Links Úteis "\n"
+Links Úteis 
+
   https://dlang.org/spec/class.html
