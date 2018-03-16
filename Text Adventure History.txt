@@ -8,8 +8,17 @@ Inventário
 	[3]	.....
 
 	Combinar itens
-	[ ]+[ ] = [ ] 
- 
+	[ ]+[ ] = [ ] [itens combinados são removidos do invetário]
+ 	
+
+	{
+		Cliper de Papal 		[VER]
+		Pedaço de Arame 		[VER]
+		Grampo de Duas pontas 	[VER]
+		Carta 					[VER]
+
+	}
+	
 
 
 Cena 01
@@ -62,7 +71,7 @@ Cena 03
 
 Cena 04
 	Você decide correr para frente com medo, desviando de arbustos e árvores que mal 
-	podiam serem vistas no escuro, até que você desliza e cai de um barranco.
+	podiam serem vistas no escuro, até que você desliza e cai de um barranco {vida -1}.
 	{vida -1}. Atordoado você se levanta e observa uma luz em meio à escuridão.
 
 
@@ -85,7 +94,6 @@ Cena 05
 		{Inventário}
 
 Cena 06 
-	Nada acontece ...
 
 
 Cena 07
@@ -95,17 +103,39 @@ Cena 07
 
 
 Cena 08
-	A cada passo que você se aproxima da luz, percebe que se trata de uma simples casa. Você para
-	em frente e decide ...
+	A cada passo que você se aproxima da luz, percebe que se trata de uma simples casa abandonada. 
+	Você para em frente e decide ...
 
-	[A] Bater na Porta.
-		{Cena 06}
-		
+	[A] Bater na Porta.	
+		{se bater_na_porta == verdade então
+			
+			[SOM DE BATIDA NA Porta]
+			Nada acontece ...
+		}
+
 	[B] Vasculhar em Volta da Casa.
+		[SOM DE ANDAR EM FOLHAS SECAS]
 		{Cena 09}
 
 	[C] Tentar Abrir a Porta.
-		{Cena 06}
+		{se abrir porta == verdade entao
+
+			[SOM DE ABRIR PORTA TRANCADA]
+			A porta está trancada!.
+		}
+
+	[D] Analisar Fechadura.
+		{se analisar fechadura == verdade entao
+
+			Hmmm... a fechadura tem dois encaixes pequenos ....
+
+			se tiver no inventario == grampo de duas pontas
+
+				[A] Forçar Trinco.
+				[SOM DE PORTA ABRINDO]
+				{Cena 12}
+
+		}
 
 	[V] Ver Mochila.
 		{Inventário}
@@ -122,26 +152,59 @@ Cena 09
 		{Cena 11}
 
 	[C] Voltar para a Porta da Casa.
-		{Cena 13}
+		{Cena 08}
 
 	[V] Ver Mochila.
 		{Inventário}
 
 
 Cena 10
-	Ao chegar na garagem você começa a vasculhar e encontra um pedacinho de arame ...
+	Ao chegar na garagem você começa a vasculhar e encontra um pedaço pequeno de arame ...
 
-	[A] Pegar Arame; (*se ja foi pego entao nao mostrar opção).
+	[A] Pegar Pedaço de Arame; (*se ja foi pego entao não mostrar opção).
 
 	[B] Voltar para Porta da Casa.
-		{Cena 13}
+		{Cena 08}
 
 	[C] Continuar Vasculhando aos arredores da casa.
+		[SOM DE ANDAR EM FOLHAS SECAS]
 		{Cena 09}
 
 	[V] Ver Mochila.
 		{Inventário}
 
 Cena 11 
-	cxa de correio pegar clip de papel
-	arame + clip = porta aberta.
+	Você chega à caixa de correios e a abre...
+
+	[A] Pegar uma Carta.	(*se ja foi pego entao nao mostrar opção).
+
+	[B] Pegar um Clipe de papel.	(*se ja foi pego entao não mostrar opção).
+
+	[C] Continuar Vasculhando aos arredores da casa.
+		[SOM DE ANDAR EM FOLHAS SECAS]
+		{Cena 09}
+
+	[C] Voltar para a Porta da Casa. 
+		{Cena 08}
+
+
+Cena 12 
+	Ao entrar na casa percebe que a luz estava ligada, mas , porém sem nenhum móvel pela casa,
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
