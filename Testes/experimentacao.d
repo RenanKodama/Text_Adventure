@@ -14,6 +14,22 @@ string lendoDoArquivo(string nome){
   File arquivo = File(nome, "r+");
   return arquivo.readln();
 }
+// CRIANDO CLASSES
+class Objeto{
+  public:
+    int id;
+    string nome;
+    string descricao;
+}
+class Cena{
+  public:
+    int id;
+    int numero;
+    string descricao;
+    Objeto[] objetos;
+}
+//FIM
+
 
 void main(){
   writeln("Testando entrada/Saída em arquivos");
@@ -24,4 +40,16 @@ void main(){
   escrevendoArquivo(nome);
   string doArquivo =  lendoDoArquivo(nome);
   writeln("Isso estava escrito no arquivo >> ",doArquivo );
+  //OBJETOS
+  Objeto ob = new Objeto();
+  ob.id=1;
+  ob.nome = "Cadeira";
+  ob.descricao = "Uma fucking cadeira";
+  writeln(ob.nome);
+  Cena cena1 = new Cena();
+  cena1.id = 0;
+  cena1.numero=2;
+  cena1.descricao = "não sei nao";
+  cena1.objetos[] = ob;
+  writeln(cena1.objetos[]);
 }
