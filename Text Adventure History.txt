@@ -19,6 +19,7 @@ Inventário
 		Feijao
 		Algodao
 		Feijao c/ Algodao
+		Muda
 	}
 	
 	[9] Voltar
@@ -223,8 +224,9 @@ Cena 14
 	[A] Analisar Armário de Conserva.
 		[SOM DE PORTA VELHA SE ABRINDO]
 		{se analisar armario == verdade entao
-			[C] Pegar Feijões em Conserva
+			[C] Pegar Feijões em Conserva		(*se ja foi pego entao não mostrar opção).
 		}
+		
 	[B] Analisar Janela da Cozinha.
 		
 		{se analisar janela == verdade entao
@@ -260,7 +262,10 @@ Cena 16
 		....
 		
 	[C] Abrir Espelho
-		O espelho esta Vazio.
+		[SOM DE ABRIR UM OBJETO]
+		
+		[E] Pegar Remédio.		(*se ja foi pego entao não mostrar opção).
+		
 		
 	[D] Voltar ao Corredor.
 		{Cena 17}
@@ -296,10 +301,10 @@ Cena 18
 		{se tiver feijao em lata mais algodao entao
 			
 			Será que se eu colocar o feijao com algodão na água...
-			[B] Colocar Feijao com algodão na Água.
+			[B] Colocar Feijao com algodão na Água.		(*se ja foi realizado então não mostrar opção).
 				[SOM DE CRESCIMENTO VEGETAL] 
 			
-			[C] Pegar Muda.
+			[C] Pegar Muda.					(*se ja foi realizado então não mostrar opção).
 		}
 		
 		[V] Ver Mochila.
