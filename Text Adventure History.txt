@@ -3,23 +3,26 @@
 
 
 Inventário
-	[1] ..... 
-	[2]	.....
-	[3]	.....
-
+	[1.<USAR|VER>] 		..... 
+	[2.<USAR|VER>]		.....
+	[3.<USAR|VER>]		.....
+	
 	Combinar itens
 	[ ]+[ ] = [ ] [itens combinados são removidos do invetário]
- 	
+ 		
 
-	{
-		Cliper de Papal 		[VER]
-		Pedaço de Arame 		[VER]
-		Grampo de Duas pontas 	[VER]
-		Carta 					[VER]
-
+	ITENS {
+		Cliper de Papal 		
+		Pedaço de Arame 		
+		Grampo de Duas pontas 		
+		Carta 				
+		Feijao
+		Algodao
+		Feijao c/ Algodao
 	}
 	
-
+	[9] Voltar
+--------------------------------------------------------------------------------------------------
 
 Cena 01
 	Quando você se dá conta está em um lugar totalmente diferente do acostumado, 
@@ -173,6 +176,7 @@ Cena 10
 	[V] Ver Mochila.
 		{Inventário}
 
+
 Cena 11 
 	Você chega à caixa de correios e a abre...
 
@@ -186,10 +190,123 @@ Cena 11
 
 	[C] Voltar para a Porta da Casa. 
 		{Cena 08}
-
+	
+	[V] Ver Mochila.
+		{Inventário}
 
 Cena 12 
-	Ao entrar na casa percebe que a luz estava ligada, mas , porém sem nenhum móvel pela casa,
+	Ao entrar na casa percebe que a luz estava ligada, porém sem nenhum móvel nela,
+	você analisa o corredor e decide ....
+	
+	[A] Subir as Escadas.
+		{Cena 13}
+		
+	[B] Ir Para a Cozinha.
+		{Cena 14}
+		
+	[C] Ir Para Lavanderia.
+		{Cena 15}
+	
+	[D] Ir Para Banheiro Inferior.
+		{Cena 16}
+		
+	[V] Ver Mochila.
+		{Inventário}
+
+Cena 13 
+	Você sobe as escadas [SOM DE SUBIR AS ESCADAS].
+
+Cena 14
+	Ao chegar na Cozinha você encontra você encontra uma dispensa de conservas e uma janela 
+	meio aberta. 
+	
+	[A] Analisar Armário de Conserva.
+		[SOM DE PORTA VELHA SE ABRINDO]
+		{se analisar armario == verdade entao
+			[C] Pegar Feijões em Conserva
+		}
+	[B] Analisar Janela da Cozinha.
+		
+		{se analisar janela == verdade entao
+			[D] Pular Janela.
+				{Cena 18}
+		}
+	
+	[C] Voltar ao Corredor.
+		{Cena 17}
+		
+	[V] Ver Mochila.
+		{Inventário}
+		
+
+Cena 15
+	Ao chegar na lavanderia vc encontra apenas um armário velho e empoeiradao ...
+	
+	[A] Voltar ao Corredor.
+		{Cena 17}
+		
+	[V] Ver Mochila.
+	
+	
+Cena 16 
+	Ao chegar no banheiro inferior você nota que ele não foi usado por muitos anos ....
+	
+	[A] Apertar Descarga.
+		[SOM DE DESCARGA]
+		hmmm... aparentemente tem encanamento.
+	
+	[B] Abrir Torneira 
+		[SOM DE TORNEIRA ABRINDO E AGUA CAINDO]
+		....
+		
+	[C] Abrir Espelho
+		O espelho esta Vazio.
+		
+	[D] Voltar ao Corredor.
+		{Cena 17}
+		
+	[V] Ver Mochila.
+		{Inventário}
+		
+Cena 17
+	Você está parado no corredor, qual caminho irá escolher ?
+	
+	[A] Subir as Escadas.
+		{Cena 13}
+		
+	[B] Ir Para a Cozinha.
+		{Cena 14}
+		
+	[C] Ir Para a Lavanderia.
+		{Cena 15}
+	
+	[D] Ir Para o Banheiro Inferior.
+		{Cena 16}
+		
+	[V] Ver Mochila.
+		{Inventário}
+
+
+Cena 18
+	[BARULHO DE PULAR] Você está no quintal da casa, aqui fora tem uma pequena lagoa ... Não sei
+	para que serve uma lagoa tão pequena assim ....
+		
+		[A] Voltar para a cozinha.
+		
+		{se tiver feijao em lata mais algodao entao
+			
+			Será que se eu colocar o feijao com algodão na água...
+			[B] Colocar Feijao com algodão na Água.
+				[SOM DE CRESCIMENTO VEGETAL] 
+			
+			[C] Pegar Muda.
+		}
+		
+		[V] Ver Mochila.
+			{Inventário}	
+
+
+
 
 
 
