@@ -24,7 +24,7 @@ class apenasprintar
 		for (int j=0;j<5;j++){
 			vetor[j] = j;
 		}
-		this.verVetor(vetor,5);
+		this.verVetor(vetor);
 	}
 
 	void verVetor(int[] vetor){
@@ -37,6 +37,13 @@ class apenasprintar
 
 void main(char[][] args){
 	apenasprintar ini = new apenasprintar();
+	
+	string teste;
+
+	scanf ("%s", &teste);
+	printf ("%s\n", &teste);
+
+
 	ini.inicializar();
 	ini.criarvetor();
 
