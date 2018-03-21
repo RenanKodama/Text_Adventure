@@ -8,7 +8,7 @@ Inventário
 	[3.<USAR|VER>]		.....
 	
 	Combinar itens
-	[ ]+[ ] = [ ] [itens combinados são removidos do invetário]
+	[ ]+[ ] = [ ] 			*itens combinados são removidos do invetário
  		
 	[9] Voltar
 
@@ -566,16 +566,6 @@ Cena 22 (O Corredor Sup.)
 Cena 23 
 	Fim de jogo.
 	
-
-
-
-
-
-
-
-
-
-
 
 
 

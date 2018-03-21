@@ -1,6 +1,10 @@
 import std.stdio;
 
 
+class Game{
+	Cenas[25] vetor_Cenas;
+	int cena_Atual;
+}
 
 class Invetario
 {
@@ -16,8 +20,10 @@ class Cenas
 	Alternativas[10] caminhos;
 }	
 
-class Alternativas{
+class Alternativas
+{
 	string opcao;
+	string mensagem;
 	int prox_cena;
 }
 
@@ -31,7 +37,7 @@ class Itens
 }
 
 
-void IniciarlizarCenas()
+void IniciarlizarCenas(Game jogo)
 {
 	Alternativas altern00;
 	Alternativas altern01;
@@ -48,11 +54,10 @@ void IniciarlizarCenas()
 	cena00.descricao = "\t Quando você se da conta, esta em um lugar totalmente diferente do acostumado, \n
 						\t nao se lembra como foi parar la e muito menos onde está, tudo e muito escuro, \n
 						\t voce carrega apenas uma mochila nas costas.	\n\n\n";
-		
 		altern00 = new Alternativas();
 		altern00.opcao = "[A] Andar para Frente.	\n";
+		altern00.mensagem = null;
 		altern00.prox_cena = 01;
-
 	cena00.caminhos[0] = altern00;
 
 
@@ -64,7 +69,6 @@ void IniciarlizarCenas()
 	cena01.descricao = "\t Voce nao consigue ver nada a frente, você comeca a se apavorar e sua respiracao \n
 						\t se torna ofegante, quando de repente você escuta galhos se quebrando [SOM DE 	\n
 						\t GALHOS QUEBRANDO],  entao você decide .... 	\n\n\n";
-		
 		altern00 = new Alternativas();
 		altern01 = new Alternativas();
 		altern02 = new Alternativas();		
@@ -74,7 +78,6 @@ void IniciarlizarCenas()
 		altern01.prox_cena = 03;
 		altern02.opcao = "[C] Andar para Esquerda e se Espreitar nos arbustos. 	\n";
 		altern02.prox_cena = 04;
-
 	cena01.caminhos[0] = altern00;
 	cena01.caminhos[1] = altern01;
 	cena01.caminhos[2] = altern02;
@@ -88,14 +91,12 @@ void IniciarlizarCenas()
 	cena02.descricao = "\t Voce anda com cautela para frente porem e surpreendido pelas costas por uma \n
 						\t criatura indescritivel e apavorante, aos berros ela te ataca {vida -4}, com \n
 						\t seu corpo ferido você decide ....	\n\n\n";
-
 		altern00 = new Alternativas();
 		altern01 = new Alternativas();
 		altern00.opcao = "[A] Correr para Frente. 	\n ";
 		altern00.prox_cena = 03;
 		altern01.opcao = "[B] Enfrentar o Monstro. 	\n";
 		altern01.prox_cena = 06;
-
 	cena02.caminhos[0] = altern00;
 	cena02.caminhos[1] = altern01;
 
@@ -108,6 +109,11 @@ void IniciarlizarCenas()
 	cena03.descricao = "\t Voce decide correr para frente com medo, desviando de arbustos e arvores que mal 	\n
 						\t podiam serem vistas no escuro, ate que voce desliza e cai de um barranco {vida -1}.	\n
 						\t Atordoado voce se levanta e observa uma luz em meio a escuridao.	\n";
+		altern00 = new Alternativas();
+		altern00.opcao = "[A] Ir até a Luz. 	\n";
+		altern00.prox_cena = 07;
+	cena03.caminhos[0] = altern00;
+
 
 
 	Cenas cena04 = new Cenas();
@@ -118,21 +124,38 @@ void IniciarlizarCenas()
 						\t de voce, porém e impossivel distiguila de um animal ou de um humano. Apavorado você 		\n
 						\t espera a criatura se perder em meio a escuridao. Então voce se depara com uma luz 		\n
 						\t em meio as arvores. 	\n\n\n";
+		altern00 = new Alternativas();
+		altern00.opcao = "[A] Ir até a Luz. 	\n";
+		altern00.prox_cena = 07;
+	cena04.caminhos[0] = altern00;
+
 
 
 	Cenas cena05 = new Cenas();
 	cena05.id = 05;
 	cena05.titulo = "A Sala.	\n";
-
 		Itens item09 = new Itens();
 		item09.id = 09;
 		item09.nome = "Cinzas";
 		item09.texto = "PEGAR CINZAS. 	\n";
 		item09.descricao = "\t Do po viestes, ao po voltaras ....	\n";
 		item09.obtido = false;	
-
 	cena05.item[9] = item09;
 	cena05.descricao = "\t Voce decide ficar na sala, e oberva que neste lugar existe uma lareira ....	\n\n\n";
+		altern00 = new Alternativas();
+		altern01 = new Alternativas();
+		altern02 = new Alternativas();
+		altern03 = new Alternativas();
+		altern00.opcao = "[A] Voltar para o corredor. 	\n";
+		altern00.prox_cena = 16;
+		altern01.opcao = "[B] Colocar Madeira na Lareira.	\n";
+		altern01.prox_cena = -1;
+		altern02.opcao = "[C] Acender Lareira. 	\n";
+		altern02.prox_cena = -1;
+		altern03.opcao = "[D] Pegar Cinzas. 	\n";
+		altern03.prox_cena = -1;
+	cena05.caminhos[0] = altern00;
+
 
 
 	Cenas cena06 = new Cenas();
@@ -151,6 +174,11 @@ void IniciarlizarCenas()
 	cena07.item = null;
 	cena07.descricao = "\t A cada passo que voce se aproxima da luz, percebe que se trata de uma simples casa 	\n
 						\t abandonada. Voce para em frente dela e decide ....	\n\n\n";
+
+
+
+
+
 
 
 	Cenas cena08 = new Cenas();
