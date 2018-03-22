@@ -248,9 +248,9 @@ Cena 08 (A Floresta part 5)
 
 			se tiver no inventario == grampo de duas pontas
 
-				[A] Forçar Trinco.
-				[SOM DE PORTA ABRINDO]
-				{Cena 12}
+				[E] Forçar Trinco.
+					[SOM DE PORTA ABRINDO]
+					{Cena 12}
 
 		}
 
@@ -278,14 +278,14 @@ Cena 09 (A Casa)
 Cena 10 (A Garagem)
 	Ao chegar na garagem você começa a vasculhar ....
 
-	[A] Pegar Pedaço de Arame; (*se ja foi pego entao não mostrar opção).
-
-	[B] Voltar para Porta da Casa.
+	[A] Voltar para Porta da Casa.
 		{Cena 08}
 
-	[C] Continuar Vasculhando aos arredores da casa.
+	[B] Continuar Vasculhando aos arredores da casa.
 		[SOM DE ANDAR EM FOLHAS SECAS]
 		{Cena 09}
+
+	[C] Pegar Pedaço de Arame; (*se ja foi pego entao não mostrar opção).
 
 	[V] Ver Mochila.
 		{Inventário}
@@ -294,16 +294,16 @@ Cena 10 (A Garagem)
 Cena 11 (A caixa)
 	Você chega à caixa de correios e a abre ....
 
-	[A] Pegar uma Carta.	(*se ja foi pego entao nao mostrar opção).
-
-	[B] Pegar um Clipe de papel.	(*se ja foi pego entao não mostrar opção).
-
-	[C] Continuar Vasculhando aos arredores da casa.
+	[A] Continuar Vasculhando aos arredores da casa.
 		[SOM DE ANDAR EM FOLHAS SECAS]
 		{Cena 09}
 
-	[C] Voltar para a Porta da Casa. 
+	[B] Voltar para a Porta da Casa. 
 		{Cena 08}
+
+	[C] Pegar uma Carta.	(*se ja foi pego entao nao mostrar opção).
+
+	[D] Pegar um Clipe de papel.	(*se ja foi pego entao não mostrar opção).
 	
 	[V] Ver Mochila.
 		{Inventário}
