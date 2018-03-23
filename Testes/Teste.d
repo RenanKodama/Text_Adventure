@@ -43,7 +43,6 @@ void main(char[][] args){
 	scanf ("%s", &teste);
 	printf ("%s\n", &teste);
 
-
 	ini.inicializar();
 	ini.criarvetor();
 

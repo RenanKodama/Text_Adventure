@@ -14,10 +14,10 @@ Inventário
 
 --------------------------------------------------------------------------------------------------
 ITENS 
-	Cliper de Papal 				Carta 				Velas
-	Pedaço de Arame 				Feijao 				Cinzas
-	Grampo de Duas pontas 			Algodao				Livro de Receitas Magicas
-	Feijao c/ Algodao 				Broto
+	Cliper de Papal 			Carta 				Velas 							Remedio
+	Pedaço de Arame 			Feijao 				Cinzas 							Madeira
+	Grampo de Duas pontas 		Algodao				Livro de Receitas Magicas 		revolver
+	Feijao c/ Algodao 			Broto 				Cx. Fosforos
 		
 	
 	Cliper de Papel (Caixa):  
@@ -80,7 +80,7 @@ ITENS
 		id: 		08
 		nome: 		Velas
 		texto: 		PEGAR VELAS 
-		descrição: 	Muito útil par iluminar lugares escuros ou deixar um clima mais romântico
+		descrição: 	Muito útil par iluminar lugares escuros.
 		obtido: 	True|False
 
 	Cinzas (Sala):
@@ -90,8 +90,15 @@ ITENS
 		descrição:	Do pó viestes, ao pó voltarás ....
 		obtido: 	True|False
 
+	Cx. Fosforos (Lavanderia):
+		id: 		10
+		nome: 		Cx. Fosforos
+		texto: 		PEGAR CAIXA DE FOSFOROS
+		descrição:	... precisa de descrição ?
+		obtido: 	True|False
+
 	Livro de Receitas Magicas (Qrt. de Hospedes):
-		 id: 		10
+		 id: 		11
 		 nome: 		Livro de Receitas Magicas
 		 texto: 	PEGAR LIVRO DE RECEITAS MAGICAS	DO CHÃO	
 		 descrição: "
@@ -110,6 +117,27 @@ ITENS
 		 						.Coloque o broto
 		 										CUIDADO NÃO ERRE A ORDEM
 		 obtido: 	True|False
+
+	Madeira (Quarto de Casal):
+		id: 		12
+		nome: 		Madeira
+		texto: 		PEGAR MADEIRA
+		descrição:	Se descuidar pega cupim.
+		obtido: 	True|False
+
+	Revolver (Quarto de Casal):
+		id: 		13
+		nome: 		Revolver
+		texto: 		PEGAR REVOLVER
+		descrição:	Cuidado para onde aponta.
+		obtido: 	True|False
+
+	Remedio (Banheiro Sup.):
+		id: 		14
+		nome: 		Remedio
+		texto: 		PEGAR REMEDIO
+		descrição:	Isso pode me curar.
+		obtido: 	True|False
 
 --------------------------------------------------------------------------------------------------
 NO CODIGO SE ORIENTE FAZENDO CENA -1
@@ -325,7 +353,7 @@ Cena 12 (O Corredor Inf.)
 	[D] Ir Para Banheiro Inferior.
 		{Cena 16}
 
-	[E] Ficar na Sala.
+	[E] Ir para a Sala.
 		{Cena 06}
 
 	[V] Ver Mochila.
@@ -359,13 +387,13 @@ Cena 14 (A Cozinha)
 	[A] Analisar Armário de Conserva.
 		[SOM DE PORTA VELHA SE ABRINDO]
 		{se analisar armario == verdade entao
-			[C] Pegar Grãos de Feijão 					(*se ja foi pego entao não mostrar opção).
+			[D] Pegar Grãos de Feijão 					(*se ja foi pego entao não mostrar opção).
 		}
 		
 	[B] Analisar Janela da Cozinha.
 		
 		{se analisar janela == verdade entao
-			[D] Pular Janela.
+			[E] Pular Janela.
 				{Cena 18}
 		}
 	
@@ -417,8 +445,6 @@ Cena 16 (O Banheiro Inf.)
 
 			senao
 				[SOM DE PORTAL MAGICO]
-				Um portal se abre e você acorda em outro lugar escuro ....
-				
 				[Cena 23]
 
 
@@ -430,8 +456,6 @@ Cena 16 (O Banheiro Inf.)
 		
 	[C] Abrir Espelho
 		[SOM DE ABRIR UM OBJETO]
-		
-		[E] Pegar Remédio.					(*se ja foi pego entao não mostrar opção).
 		
 	[D] Voltar ao Corredor.
 		{Cena 17}
@@ -455,7 +479,7 @@ Cena 17 (O Corredor Inf.)
 	[D] Ir Para o Banheiro Inferior.
 		{Cena 16}
 
-	[E] Ficar na Sala.
+	[E] Ir Para a Sala.
 		{Cena 06}
 		
 	[V] Ver Mochila.
@@ -467,6 +491,7 @@ Cena 18 (O Quintal)
 	para que serve uma lagoa tão pequena assim ....
 		
 		[A] Voltar para a cozinha.
+			{Cena 14}
 		
 		{se tiver feijao em lata mais algodao entao
 			
@@ -488,19 +513,19 @@ Cena 19 (Quarto de Casal)
 
 	[B] Ver criado mudo.
 		{se ver criado mudo == verdade entao
-			[A] Pegar revolver.						(*se ja foi realizado então não mostrar opção).
-		} 
+			[D] Pegar revolver.						(*se ja foi realizado então não mostrar opção).
+		}
 
 	[C] Voltar para Corredor Superior.
 		{se monstro == nao apareceu e inventario tem arma entao
 			O monstro apareceu [SOM DE MONSTRO] e esta na sua frente você pega sua arma e decide...
 
 			enquanto monstro nao morrer faça:
-				[D] Atirar na Cabeça. 	[Dano: FATAL]
+				[E] Atirar na Cabeça. 	[Dano: FATAL]
 
-				[E] Atirar no Peito.  	[Dano: Moderado]
+				[F] Atirar no Peito.  	[Dano: Moderado]
 				
-				[F] Atirar na Perna.	[Dano: Baixo]
+				[G] Atirar na Perna.	[Dano: Baixo]
 
 				se sua vida == 0 entao
 					você perdeu
@@ -539,6 +564,8 @@ Cena 21 (Bannheiro Sup.)
 		
 		[E] Pegar Algodão.					(*se ja foi pego entao não mostrar opção).
 		
+		[F] Pegar Remedio. 					(*se ja foi pego entao não mostrar opção).
+
 	[D] Voltar ao Corredor Superior.
 		{Cena 22}
 		
@@ -564,6 +591,9 @@ Cena 22 (O Corredor Sup.)
 		{Inventário}
 
 Cena 23 
+
+	Um portal se abre e você acorda em outro lugar escuro ....
+	
 	Fim de jogo.
 	
 
