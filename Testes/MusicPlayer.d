@@ -1,9 +1,14 @@
+import std.exception, std.stdio, std.process;
 auto soundPlayer(string nome){
-  import std.exception, std.stdio, std.process;
-  spawnProcess(["mpg123",nome]);
+
+  spawnProcess(["mpg123","-q",nome]);
 }
 
 void main(){
     string nome = "sounds/Themata.mp3";
-    soundPlayer(nome);
+    string damage="sounds/damageSound.mp3";
+    //soundPlayer(nome);
+    writeln("Testando fluidez");
+    soundPlayer(damage);
+    writeln("fim");
 }
