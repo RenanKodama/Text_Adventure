@@ -1,12 +1,6 @@
 auto soundPlayer(string nome){
   import std.exception, std.stdio, std.process;
-  string comando = "mpg123 "~nome;
-  writeln("O Comando é: ",comando);
-  auto result = ["mpg123"].execute;
-  writeln(spawnProcess("mpg123 Themata.mp3"));
-
-  enforce(result.status == 0);
-  result.output.write;
+  spawnProcess(["mpg123",nome]);
 }
 
 void main(){
