@@ -274,9 +274,13 @@ void IniciarlizarCenas(Game jogo)
 		altern00.mensagem = null;
 		altern00.prox_cena = 09;
 		altern01.opcao = "[B] Ir para a Caixa de Correios. 	\n";
+		altern01.mensagem = null;
 		altern01.prox_cena = 10;
 		altern02.opcao = "[C] Voltar para a Porta da Casa. 	\n";
-	
+		altern02.mensagem = null;
+		altern02.prox_cena = 07;
+
+
 	cena08.tamanhoCaminhos = 03;
 	cena08.tamanhoItem = 00;
 	cena08.caminhos[0] = altern00;
@@ -618,23 +622,23 @@ void IniciarlizarCenas(Game jogo)
 
 		altern00.opcao = "[A] Subir as Escadas. 	\n";
 		altern00.mensagem = null;
-		altern00.prox_cena = -1;
+		altern00.prox_cena = 12;
 		
 		altern01.opcao = "[B] Ir Para a Cozinha.	 	\n";
 		altern01.mensagem = null;
-		altern01.prox_cena = -1;
+		altern01.prox_cena = 13;
 		
 		altern02.opcao = "[C] Ir Para a Lavanderia.	\n";
 		altern02.mensagem = "Está Vazio 	\n";
-		altern02.prox_cena = -1;
+		altern02.prox_cena = 14;
 		
 		altern03.opcao = "[D] Ir Para o Banheiro Inferior. 	\n";
 		altern03.mensagem = null;
-		altern03.prox_cena = 16;
+		altern03.prox_cena = 15;
 		
 		altern04.opcao = "[E] Ir Para a Sala. 	\n";
 		altern04.mensagem = null;
-		altern04.prox_cena = -1;
+		altern04.prox_cena = 05;
 
 	cena16.tamanhoCaminhos = 05;
 	cena16.tamanhoItem = 00;
@@ -848,7 +852,7 @@ void IniciarlizarCenas(Game jogo)
 
 		altern03.opcao = "[D] Voltar ao Corredor Superior.	 	\n";
 		altern03.mensagem = null;
-		altern03.prox_cena = -1;
+		altern03.prox_cena = 21;
 
 		altern04.opcao = "[E] Pegar Algodão. 	 	\n";
 		altern04.mensagem = null;
@@ -871,10 +875,10 @@ void IniciarlizarCenas(Game jogo)
 
 	Cenas cena21 = new Cenas();
 	cena21.id = 21;
-	cena21.titulo = "O Bannheiro Superior. 	\n";
+	cena21.titulo = "O Corredor Superior. 	\n";
 	cena21.item = null;
 
-	cena21.descricao = "\t Chegando ao banheiro, você percebe que este é muito semelhante ao banheiro do andar de baixo .... 	\n\n\n";
+	cena21.descricao = "\t Você está parado no corredor do andar superior, qual caminho irá escolher ?. 	\n\n\n";
 
 		altern00 = new Alternativas();
 		altern01 = new Alternativas();
@@ -963,7 +967,15 @@ void main()
 			writef("Itens: %s, %d\n",jogo.vetor_Cenas[i].item[j].nome,jogo.vetor_Cenas[i].item[j].id);	
 		}
 		writef("Descricao: %s",jogo.vetor_Cenas[i].descricao);
+		
+		for(int k=0;k<jogo.vetor_Cenas[i].tamanhoCaminhos;k++){
+			writef("%s ",jogo.vetor_Cenas[i].caminhos[k].opcao);
+			writef("%s ",jogo.vetor_Cenas[i].caminhos[k].mensagem);
+			writef("\tProxima Cena: %d \n",jogo.vetor_Cenas[i].caminhos[k].prox_cena);
+		}
+
 		writefln("\n\n\n\n");
+
 
 		
 	}
