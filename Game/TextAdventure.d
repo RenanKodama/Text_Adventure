@@ -1,7 +1,5 @@
 import std.stdio;
 
-
-
 class Game{
 	Cenas[25] vetor_Cenas;
 	int cena_Atual;
@@ -42,6 +40,7 @@ class Itens
 
 void IniciarlizarCenas(Game jogo)
 {
+	jogo.cena_Atual = 0;
 	Alternativas altern00;
 	Alternativas altern01;
 	Alternativas altern02;
@@ -948,6 +947,49 @@ void IniciarlizarCenas(Game jogo)
 	jogo.vetor_Cenas[22] = cena22;
 }
 
+void limparTela(){
+	writef("\x1B[2J");
+} 
+
+int apresentarCena(Game jogo){
+	int numero_cena = jogo.cena_Atual;
+	int entradaTeclado;
+
+	//limparTela();
+
+	writefln("Cena atual: %d",numero_cena);
+	writef("Titulo: %s",jogo.vetor_Cenas[numero_cena].titulo);
+	writef("Descricao: %s",jogo.vetor_Cenas[numero_cena].descricao);
+
+
+	for(int k=0;k<jogo.vetor_Cenas[numero_cena].tamanhoCaminhos;k++){
+		writef("%s ",jogo.vetor_Cenas[numero_cena].caminhos[k].opcao);
+	}
+
+	if (jogo.vetor_Cenas[numero_cena].tamanhoCaminhos != 0){
+		writef("Opcao: ");
+		stdout.flush();
+		scanf("%d", &entradaTeclado);
+		
+		//writefln(" ");
+		printf("%s", &entradaTeclado);
+
+		if(entradaTeclado == 1) {
+			jogo.cena_Atual = jogo.vetor_Cenas[numero_cena].caminhos[0].prox_cena;
+			printf("aaaaaaaaa");
+		}
+					
+		/*if(entradaTeclado == "B" || entradaTeclado == "b"){
+			jogo.cena_Atual = jogo.vetor_Cenas[numero_cena].caminhos[1].prox_cena;
+		}
+		if(entradaTeclado == "C" || entradaTeclado == "c"){
+			jogo.cena_Atual = jogo.vetor_Cenas[numero_cena].caminhos[2].prox_cena;
+		}*/
+	}
+
+
+	return 0;
+}
 
 
 
@@ -957,10 +999,24 @@ void IniciarlizarCenas(Game jogo)
 void main()
 {
 	Game jogo = new Game();
-
+	int cena=0;
 	IniciarlizarCenas(jogo);	
+	
+	limparTela();
+	
 
-	for(int i=0;i<=22;i++){
+	while(cena != 22){
+		cena = apresentarCena(jogo);
+
+
+	}
+
+
+
+
+
+
+	/*for(int i=0;i<=22;i++){
 		writef("Titulo: %s",jogo.vetor_Cenas[i].titulo);
 		
 		for(int j=0;j<jogo.vetor_Cenas[i].tamanhoItem;j++){
@@ -975,9 +1031,7 @@ void main()
 		}
 
 		writefln("\n\n\n\n");
-
-
-		
-	}
+	
+	}*/
 
 }
