@@ -1,15 +1,20 @@
 import std.stdio;
 import std.exception, std.process;
-import std.c.stdlib;
+import core.stdc.stdlib;		//import std.c.stdlib;
+import core.stdc.time;			//import std.c.time;
+import core.thread;
+
 
 class Game{
 	Cenas[25] vetor_Cenas;
 	int cena_Atual;
+	Inventario bolsa;
 }
 
-class Invetario
+class Inventario
 {
 	Itens[20] itensObtidos;
+	int qtd_Inventario;
 }
 
 class Cenas
@@ -28,6 +33,7 @@ class Alternativas
 	string opcao;
 	string mensagem;
 	int prox_cena;
+	bool ver_Opcao = true;
 }
 
 class Itens
@@ -43,6 +49,9 @@ class Itens
 void IniciarlizarCenas(Game jogo)
 {
 	jogo.cena_Atual = 0;
+	jogo.bolsa = new Inventario();
+	jogo.bolsa.qtd_Inventario = 0;
+
 	Alternativas altern00;
 	Alternativas altern01;
 	Alternativas altern02;
@@ -178,7 +187,7 @@ void IniciarlizarCenas(Game jogo)
 		item09.descricao = "\t Do po viestes, ao po voltaras ....	\n";
 		item09.obtido = false;	
 	
-	cena05.item[0] = item09;
+	cena05.item[3] = item09;
 	cena05.descricao = "\t Voce decide ficar na sala, e oberva que neste lugar existe uma lareira ....	\n\n\n";
 		
 		altern00 = new Alternativas();
@@ -197,7 +206,7 @@ void IniciarlizarCenas(Game jogo)
 		altern02.prox_cena = -1;
 		altern03.opcao = "[D] Pegar Cinzas. 	\n";
 		altern03.mensagem = null;
-		altern03.prox_cena = -1;
+		altern03.prox_cena = -2;
 	
 	cena05.tamanhoCaminhos = 4;
 	cena05.tamanhoItem = 01;
@@ -235,7 +244,7 @@ void IniciarlizarCenas(Game jogo)
 		altern04 = new Alternativas();
 		
 		altern00.opcao = "[A] Bater na Porta.	\n";
-		altern00.mensagem = "Nada acontece 	\n";
+		altern00.mensagem = "Nada acontece... 	\n";
 		altern00.prox_cena = -1;
 		altern01.opcao = "[B] Vasculhar em Volta da Casa. 	\n";
 		altern01.mensagem = null;
@@ -302,7 +311,7 @@ void IniciarlizarCenas(Game jogo)
 		item01.descricao = "\t Talvez se combinar com outra coisa se torne mais util. 	\n";
 		item01.obtido = false;
 	
-	cena09.item[0] = item01;
+	cena09.item[2] = item01;
 	cena09.descricao = "\t Ao chegar na garagem você comeca a vasculhar ....	\n\n\n";
 	
 		altern00 = new Alternativas();
@@ -317,7 +326,7 @@ void IniciarlizarCenas(Game jogo)
 		altern01.prox_cena = 08;
 		altern02.opcao = "[C] Pegar Pedaço de Arame; 	\n";
 		altern02.mensagem = null;
-		altern02.prox_cena = -1;
+		altern02.prox_cena = -2;
 	
 	cena09.tamanhoCaminhos = 03;
 	cena09.tamanhoItem = 01;
@@ -345,8 +354,8 @@ void IniciarlizarCenas(Game jogo)
 		item00.texto = "PEGAR CLIPE DE PAPEL 	\n";
 		item00.descricao = "Muito util para manter seus papeis juntos e organizados.";
 	
-	cena10.item[0] = item04;
-	cena10.item[1] = item00;
+	cena10.item[2] = item04;
+	cena10.item[3] = item00;
 
 	cena10.descricao = "\t Voce chega a caixa de correios e a abre .... 	\n\n\n";
 
@@ -363,10 +372,10 @@ void IniciarlizarCenas(Game jogo)
 		altern01.prox_cena = 07;
 		altern02.opcao = "[C] Pegar uma Carta. 	\n";
 		altern02.mensagem = null;
-		altern02.prox_cena = -1;
+		altern02.prox_cena = -2;
 		altern03.opcao = "[D] Pegar um Clipe de papel. 	\n";
 		altern03.mensagem = null;
-		altern03.prox_cena = -1;
+		altern03.prox_cena = -2;
 
 	cena10.tamanhoCaminhos = 04;
 	cena10.tamanhoItem = 02;
@@ -464,7 +473,7 @@ void IniciarlizarCenas(Game jogo)
 		item05.descricao = "Nada mais simples do que feijões, se houvesse mais poderia come -los";
 		item05.obtido = false;
 
-	cena13.item[0] = item05;
+	cena13.item[3] = item05;
 	cena13.descricao = 	"\t Ao chegar na Cozinha você encontra uma dispensa de conservas e uma janela 	\n"~
 						"\t\t meio aberta. 	\n\n\n";
 
@@ -485,7 +494,7 @@ void IniciarlizarCenas(Game jogo)
 		altern02.prox_cena = 16;
 		altern03.opcao = "[D] Pegar Grãos de Feijão.	\n";
 		altern03.mensagem = null;
-		altern03.prox_cena = -1;
+		altern03.prox_cena = -2;
 		altern04.opcao = "[E] Pular Janela. 	\n";
 		altern04.mensagem = null;
 		altern04.prox_cena = 17;
@@ -521,8 +530,8 @@ void IniciarlizarCenas(Game jogo)
 		item10.descricao = "... precisa de descrição ? 	\n";
 		item10.obtido = false;
 
-	cena14.item[0] = item08;
-	cena14.item[1] = item10;
+	cena14.item[2] = item08;
+	cena14.item[3] = item10;
 	cena14.descricao = "\t Ao chegar na lavanderia voce encontra apenas um armário velho e empoeirado .... 	\n\n\n";
 
 		altern00 = new Alternativas();
@@ -538,10 +547,10 @@ void IniciarlizarCenas(Game jogo)
 		altern01.prox_cena = -1;
 		altern02.opcao = "[C] Pegar Velas. 	\n";
 		altern02.mensagem = null;
-		altern02.prox_cena = -1;
+		altern02.prox_cena = -2;
 		altern03.opcao = "[D] Pegar Caixa de Fósforo. 	\n";
 		altern03.mensagem = null;
-		altern03.prox_cena = -1;
+		altern03.prox_cena = -2;
 
 
 	cena14.tamanhoCaminhos = 04;
@@ -654,8 +663,16 @@ void IniciarlizarCenas(Game jogo)
 	Cenas cena17 = new Cenas();
 	cena17.id = 17;
 	cena17.titulo = "O Quintal. 	\n";
-	cena17.item = null;
+	cena17.item = new Itens();
 
+		Itens item07 = new Itens();
+		item07.id = 07;
+		item07.nome = "Broto";
+		item07.texto = "PEGAR BROTO 	\n";
+		item07.descricao = "Quem sabe um dia ele pode nos dar muitos frutos. 	\n"; 
+		item07.obtido = false;
+
+	cena17.item[2] = item07;
 	cena17.descricao = 	"\t Você está no quintal da casa, aqui fora tem uma pequena lagoa ... Não sei 	\n"~
 						"\t\t para que serve uma lagoa tão pequena assim .... 	\n\n\n";
 
@@ -675,7 +692,7 @@ void IniciarlizarCenas(Game jogo)
 		
 		altern02.opcao = "[C] Pegar Broto.	\n";
 		altern02.mensagem = null;
-		altern02.prox_cena = -1;
+		altern02.prox_cena = -2;
 		
 	cena17.tamanhoCaminhos = 03;
 	cena17.tamanhoItem = 00;
@@ -707,7 +724,7 @@ void IniciarlizarCenas(Game jogo)
 		item13.obtido = false;
 
 	cena18.item[0] = item12;
-	cena18.item[1] = item13;
+	cena18.item[3] = item13;
 	cena18.descricao = "\t Chegando ao quarto você nota que existe apenas um criado mudo e um estrado quebrado nele .... 	\n\n\n";
 
 		altern00 = new Alternativas();
@@ -720,7 +737,7 @@ void IniciarlizarCenas(Game jogo)
 
 		altern00.opcao = "[A] Pegar Pedaço de Madeira do estrado.	 	\n";
 		altern00.mensagem = null;
-		altern00.prox_cena = -1;
+		altern00.prox_cena = -2;
 		
 		altern01.opcao = "[B] Ver criado mudo.	 	\n";
 		altern01.mensagem = null;
@@ -732,7 +749,7 @@ void IniciarlizarCenas(Game jogo)
 		
 		altern03.opcao = "[D] Pegar revolver. 	\n";
 		altern03.mensagem = null;
-		altern03.prox_cena = -1;
+		altern03.prox_cena = -2;
 
 		altern04.opcao = "[E] Atirar na Cabeça. 	\n";
 		altern04.mensagem = null;
@@ -785,7 +802,7 @@ void IniciarlizarCenas(Game jogo)
 
 		item11.obtido = false;
 
-	cena19.item[0] = item11;
+	cena19.item[1] = item11;
 
 	cena19.descricao = "\t Você entra no quarto de hóspedes [SOM DE PORTA SE FECHANDO] e observa.... 	\n\n\n";
 
@@ -798,7 +815,7 @@ void IniciarlizarCenas(Game jogo)
 		
 		altern01.opcao = "[B] Pegar Livro de Receitas Magicas no chão.	 	\n";
 		altern01.mensagem = null;
-		altern01.prox_cena = -1;
+		altern01.prox_cena = -2;
 
 	cena19.tamanhoCaminhos = 02;
 	cena19.tamanhoItem = 01;
@@ -826,8 +843,8 @@ void IniciarlizarCenas(Game jogo)
 		item14.descricao = "Isso pode me curar. 	\n";
 		item14.obtido = false;
 
-	cena20.item[0] = item06;
-	cena20.item[1] = item14;
+	cena20.item[4] = item06;
+	cena20.item[5] = item14;
 
 	cena20.descricao = "\t Chegando ao banheiro, você percebe que este é muito semelhante ao banheiro do andar de baixo .... 	\n\n\n";
 
@@ -857,11 +874,11 @@ void IniciarlizarCenas(Game jogo)
 
 		altern04.opcao = "[E] Pegar Algodão. 	 	\n";
 		altern04.mensagem = null;
-		altern04.prox_cena = -1;
+		altern04.prox_cena = -2;
 
 		altern05.opcao = "[F] Pegar Remedio.	 	\n";
 		altern05.mensagem = null;
-		altern05.prox_cena = -1;
+		altern05.prox_cena = -2;
 
 	cena20.tamanhoCaminhos = 06;
 	cena20.tamanhoItem = 02;
@@ -956,7 +973,7 @@ void limparTela(){
 int apresentarCena(Game jogo){
 	int numero_cena = jogo.cena_Atual;
 	char entradaTeclado;
-	int entradaTecladoConvertido;
+	int entradaTecladoConvertido = -1;
 	int tam_caminhos = jogo.vetor_Cenas[numero_cena].tamanhoCaminhos;
 
 
@@ -966,71 +983,114 @@ int apresentarCena(Game jogo){
 
 
 	for(int k=0;k<jogo.vetor_Cenas[numero_cena].tamanhoCaminhos;k++){
-		writef("\t%s ",jogo.vetor_Cenas[numero_cena].caminhos[k].opcao);
+		if (jogo.vetor_Cenas[numero_cena].caminhos[k].ver_Opcao == true){
+			writef("\t%s ",jogo.vetor_Cenas[numero_cena].caminhos[k].opcao);
+		}
 	}
+
 
 	if (jogo.vetor_Cenas[numero_cena].tamanhoCaminhos != 0){
 		writef("\nOpcao: ");
 		stdout.flush();
 		scanf("%s", &entradaTeclado);
-	
-		switch(entradaTeclado){
-			case('A'):
-			case('a'):
-				entradaTecladoConvertido = 0;
-				break;
-			
-			case('B'):
-			case('b'):
-				entradaTecladoConvertido = 1;
-				break;
+		
+		
+			switch(entradaTeclado){
+				case('A'):
+				case('a'):
+					entradaTecladoConvertido = 0;
+					break;
+				
+				case('B'):
+				case('b'):
+					entradaTecladoConvertido = 1;
+					break;
 
-			case('C'):
-			case('c'):
-				entradaTecladoConvertido = 2;
-				break;
+				case('C'):
+				case('c'):
+					entradaTecladoConvertido = 2;
+					break;
 
-			case('D'):
-			case('d'):
-				entradaTecladoConvertido = 3;
-				break;
+				case('D'):
+				case('d'):
+					entradaTecladoConvertido = 3;
+					break;
 
-			case('E'):
-			case('e'):
-				entradaTecladoConvertido = 4;
-				break;
+				case('E'):
+				case('e'):
+					entradaTecladoConvertido = 4;
+					break;
 
-			case('F'):
-			case('f'):
-				entradaTecladoConvertido = 5;
-				break;
+				case('F'):
+				case('f'):
+					entradaTecladoConvertido = 5;
+					break;
 
-			case('G'):
-			case('g'):
-				entradaTecladoConvertido = 6;
-				break;
+				case('G'):
+				case('g'):
+					entradaTecladoConvertido = 6;
+					break;
 
-			case('H'):
-			case('h'):
-				entradaTecladoConvertido = 7;
-				break;
-			
-			default:
-				writefln("Caractere Invalido!");
+				case('H'):
+				case('h'):
+					entradaTecladoConvertido = 7;
+					break;
+				
+				case('V'):
+				case('v'):
+					verInventario(jogo);
+					break;
 
-		}
+				default:
+					writefln("Caractere Invalido!");
 
-			jogo.cena_Atual = jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].prox_cena;
+			}
 
+			if (entradaTecladoConvertido != -1){ 
+				//chamada para outros cenarios
+				if (jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].prox_cena != -1){
+					if (jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].prox_cena != -2){
+						jogo.cena_Atual = jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].prox_cena;
+					}
+				}	
+
+				//chamada para cenas invalidas
+				if (jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].prox_cena == -1){
+					if (jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].mensagem != null){
+						writefln ("\n %s",jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].mensagem);
+						Thread.sleep(dur!("seconds")( 2 ));
+					}
+				}
+				//chamada para itens
+				if (jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].prox_cena == -2){
+					jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].ver_Opcao = false;
+
+					writefln("Item Adquirido: %s \n",jogo.vetor_Cenas[numero_cena].item[entradaTecladoConvertido].nome);
+					Thread.sleep(dur!("seconds")( 3 ));
+				}
+			}
 
 	}
-
 	return 0;
 }
 
+void verInventario(Game jogo){
+	int teclado;
+
+	while(teclado != )
+		for(int i=0;i<jogo.bolsa.qtd_Inventario;i++){
+			writef("Nome: %s\n",jogo.bolsa.itensObtidos[i].nome);
+			writef("Texto: %s\n",jogo.bolsa.itensObtidos[i].texto);
+			writef("Descricao: %s\n",jogo.bolsa.itensObtidos[i].descricao);
+		}
+}
 
 
-
+void adicionarInventario(Game jogo,Itens itemAdquirido){
+	jogo.bolsa.itensObtidos[jogo.bolsa.qtd_Inventario] = itemAdquirido;
+	jogo.bolsa.qtd_Inventario++;
+}
+	
 
 
 void main()
@@ -1038,14 +1098,11 @@ void main()
 	Game jogo = new Game();
 	int cena=0;
 	IniciarlizarCenas(jogo);	
+		
 	
-	
-
 	while(cena != 22){
 		limparTela();	
-		cena = apresentarCena(jogo);
-
-
+		cena = apresentarCena(jogo);	
 	}
 
 
