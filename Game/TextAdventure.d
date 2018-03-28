@@ -1,4 +1,6 @@
 import std.stdio;
+import std.exception, std.process;
+import std.c.stdlib;
 
 class Game{
 	Cenas[25] vetor_Cenas;
@@ -948,45 +950,80 @@ void IniciarlizarCenas(Game jogo)
 }
 
 void limparTela(){
-	writef("\x1B[2J");
+	system("clear");
 } 
 
 int apresentarCena(Game jogo){
 	int numero_cena = jogo.cena_Atual;
-	int entradaTeclado;
+	char entradaTeclado;
+	int entradaTecladoConvertido;
+	int tam_caminhos = jogo.vetor_Cenas[numero_cena].tamanhoCaminhos;
 
-	//limparTela();
 
-	writefln("Cena atual: %d",numero_cena);
-	writef("Titulo: %s",jogo.vetor_Cenas[numero_cena].titulo);
+	writefln("\n\nCena atual: %d\n\n\n\n\n\n\n",numero_cena);
+	writef("Titulo: %s\n",jogo.vetor_Cenas[numero_cena].titulo);
 	writef("Descricao: %s",jogo.vetor_Cenas[numero_cena].descricao);
 
 
 	for(int k=0;k<jogo.vetor_Cenas[numero_cena].tamanhoCaminhos;k++){
-		writef("%s ",jogo.vetor_Cenas[numero_cena].caminhos[k].opcao);
+		writef("\t%s ",jogo.vetor_Cenas[numero_cena].caminhos[k].opcao);
 	}
 
 	if (jogo.vetor_Cenas[numero_cena].tamanhoCaminhos != 0){
-		writef("Opcao: ");
+		writef("\nOpcao: ");
 		stdout.flush();
-		scanf("%d", &entradaTeclado);
-		
-		//writefln(" ");
-		printf("%s", &entradaTeclado);
+		scanf("%s", &entradaTeclado);
+	
+		switch(entradaTeclado){
+			case('A'):
+			case('a'):
+				entradaTecladoConvertido = 0;
+				break;
+			
+			case('B'):
+			case('b'):
+				entradaTecladoConvertido = 1;
+				break;
 
-		if(entradaTeclado == 1) {
-			jogo.cena_Atual = jogo.vetor_Cenas[numero_cena].caminhos[0].prox_cena;
-			printf("aaaaaaaaa");
+			case('C'):
+			case('c'):
+				entradaTecladoConvertido = 2;
+				break;
+
+			case('D'):
+			case('d'):
+				entradaTecladoConvertido = 3;
+				break;
+
+			case('E'):
+			case('e'):
+				entradaTecladoConvertido = 4;
+				break;
+
+			case('F'):
+			case('f'):
+				entradaTecladoConvertido = 5;
+				break;
+
+			case('G'):
+			case('g'):
+				entradaTecladoConvertido = 6;
+				break;
+
+			case('H'):
+			case('h'):
+				entradaTecladoConvertido = 7;
+				break;
+			
+			default:
+				writefln("Caractere Invalido!");
+
 		}
-					
-		/*if(entradaTeclado == "B" || entradaTeclado == "b"){
-			jogo.cena_Atual = jogo.vetor_Cenas[numero_cena].caminhos[1].prox_cena;
-		}
-		if(entradaTeclado == "C" || entradaTeclado == "c"){
-			jogo.cena_Atual = jogo.vetor_Cenas[numero_cena].caminhos[2].prox_cena;
-		}*/
+
+			jogo.cena_Atual = jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].prox_cena;
+
+
 	}
-
 
 	return 0;
 }
@@ -1002,10 +1039,10 @@ void main()
 	int cena=0;
 	IniciarlizarCenas(jogo);	
 	
-	limparTela();
 	
 
 	while(cena != 22){
+		limparTela();	
 		cena = apresentarCena(jogo);
 
 
