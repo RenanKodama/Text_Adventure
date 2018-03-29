@@ -1075,9 +1075,9 @@ int apresentarCena(Game jogo){
 }
 
 void verInventario(Game jogo){
-	int teclado;
+	string teclado;
 
-	while(teclado != )
+	while(teclado != "q" || teclado != "Q")
 		for(int i=0;i<jogo.bolsa.qtd_Inventario;i++){
 			writef("Nome: %s\n",jogo.bolsa.itensObtidos[i].nome);
 			writef("Texto: %s\n",jogo.bolsa.itensObtidos[i].texto);
