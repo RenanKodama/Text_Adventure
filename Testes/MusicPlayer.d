@@ -8,6 +8,6 @@ void main(){
     string damage = "sounds/damageSound.mp3";
     //soundPlayer(nome);
     writeln("Testando fluidez");
-    soundPlayer(damage);
+    soundPlayer(nome);
     writeln("fim");
 }
