@@ -971,6 +971,24 @@ void limparTela(){
 	system("clear");
 }
 
+auto addSom(int numero_cena){
+	string galhoQuebrando = "soundEffects/breakingWood.mp3";
+	string damageSound = "soundEffects/damageSound.mp3";
+	string escadaMadeira = "soundEffects/woodenStair.mp3";
+	string magnum = "soundEffects/magnum.mp3";
+	if(numero_cena==1){
+		soundPlayer(galhoQuebrando);
+	}
+	if(numero_cena==2 || numero_cena==3){
+		soundPlayer(damageSound);
+	}
+	if(numero_cena==12){
+		soundPlayer(escadaMadeira);
+	}
+	
+}
+
+
 int apresentarCena(Game jogo){
 	int numero_cena = jogo.cena_Atual;
 	char entradaTeclado;
@@ -984,6 +1002,7 @@ int apresentarCena(Game jogo){
 
 
 	for(int k=0;k<jogo.vetor_Cenas[numero_cena].tamanhoCaminhos;k++){
+		addSom(numero_cena);
 		if (jogo.vetor_Cenas[numero_cena].caminhos[k].ver_Opcao == true){
 			writef("\t%s ",jogo.vetor_Cenas[numero_cena].caminhos[k].opcao);
 		}
@@ -1119,8 +1138,7 @@ void main()
 	int cena=0;
 	IniciarlizarCenas(jogo);
 	string musicaAmbiente = "soundEffects/ambientMusic.mp3";
-	string galhoQuebrando = "soundEffects/breakingWood.mp3";
-	string damageSound = "soundEffects/damageSound.mp3";
+
 	if(testaSom()){
 		soundPlayerAmbiente(musicaAmbiente);
 	} else {
