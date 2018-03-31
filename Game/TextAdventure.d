@@ -3,6 +3,7 @@ import std.exception, std.process;
 import core.stdc.stdlib;		//import std.c.stdlib;
 import core.stdc.time;			//import std.c.time;
 import core.thread;
+import std.string;
 
 
 class Game{
@@ -1102,6 +1103,15 @@ auto soundPlayerAmbiente(string nome){
 auto killSound(){
 	spawnProcess(["killall","mpg123"]);
 }
+bool testaSom(){
+	auto result = ["mpg123"].execute;
+	result.output.write;
+
+		return true;
+
+
+
+}
 
 void main()
 {
@@ -1111,8 +1121,12 @@ void main()
 	string musicaAmbiente = "soundEffects/ambientMusic.mp3";
 	string galhoQuebrando = "soundEffects/breakingWood.mp3";
 	string damageSound = "soundEffects/damageSound.mp3";
+	if(testaSom()){
+		soundPlayerAmbiente(musicaAmbiente);
+	} else {
+		write("mpg123 não localizado no sistema.\n Os sons do jogo não serão reproduzidos");
+	}
 
-	soundPlayerAmbiente(musicaAmbiente);
 	while(cena != 22){
 		limparTela();
 		cena = apresentarCena(jogo);
