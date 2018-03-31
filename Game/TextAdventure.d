@@ -1095,6 +1095,10 @@ auto soundPlayer(string nome){
   spawnProcess(["mpg123","-q",nome]);
 }
 
+auto soundPlayerAmbiente(string nome){
+  spawnProcess(["mpg123","-q","--loop","-1",nome]);
+}
+
 auto killSound(){
 	spawnProcess(["killall","mpg123"]);
 }
@@ -1108,7 +1112,7 @@ void main()
 	string galhoQuebrando = "soundEffects/breakingWood.mp3";
 	string damageSound = "soundEffects/damageSound.mp3";
 
-	soundPlayer(musicaAmbiente);
+	soundPlayerAmbiente(musicaAmbiente);
 	while(cena != 22){
 		limparTela();
 		cena = apresentarCena(jogo);
