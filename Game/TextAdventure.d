@@ -976,6 +976,7 @@ auto addSom(int numero_cena){
 	string damageSound = "soundEffects/damageSound.mp3";
 	string escadaMadeira = "soundEffects/woodenStair.mp3";
 	string magnum = "soundEffects/magnum.mp3";
+	string portaFechando = "soundEffects/portaFechando.mp3";
 	if(numero_cena==1){
 		soundPlayer(galhoQuebrando);
 	}
@@ -985,7 +986,10 @@ auto addSom(int numero_cena){
 	if(numero_cena==12){
 		soundPlayer(escadaMadeira);
 	}
-	
+	if(numero_cena==19){
+		soundPlayer(portaFechando);
+	}
+
 }
 
 
@@ -1004,6 +1008,11 @@ int apresentarCena(Game jogo){
 	for(int k=0;k<jogo.vetor_Cenas[numero_cena].tamanhoCaminhos;k++){
 		addSom(numero_cena);
 		if (jogo.vetor_Cenas[numero_cena].caminhos[k].ver_Opcao == true){
+			if(numero_cena==18 &&(k==4 || k==5 || k==6 )){
+				soundPlayer("soundEffects/magnum.mp3");
+			}else if(numero_cena==14 &&(k==1)){
+				soundPlayer("soundEffects/tosse.mp3");
+			}
 			writef("\t%s ",jogo.vetor_Cenas[numero_cena].caminhos[k].opcao);
 		}
 	}
