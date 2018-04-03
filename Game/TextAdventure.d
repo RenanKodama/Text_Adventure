@@ -10,6 +10,7 @@ class Game{
 	Cenas[25] vetor_Cenas;
 	int cena_Atual;
 	Inventario bolsa;
+	int vida;
 }
 
 class Inventario
@@ -27,6 +28,8 @@ class Cenas
 	Alternativas[10] caminhos;
 	int tamanhoCaminhos;
 	int tamanhoItem;
+	int[3] dano;
+	bool recebe_Dano = false;
 }
 
 class Alternativas
@@ -52,6 +55,7 @@ void IniciarlizarCenas(Game jogo)
 	jogo.cena_Atual = 0;
 	jogo.bolsa = new Inventario();
 	jogo.bolsa.qtd_Inventario = 0;
+	jogo.vida = 10;
 
 	Alternativas altern00;
 	Alternativas altern01;
@@ -120,6 +124,8 @@ void IniciarlizarCenas(Game jogo)
 	cena02.descricao = 	"\t Voce anda com cautela para frente porem e surpreendido pelas costas por uma 	\n"~
 						"\t\t criatura indescritivel e apavorante, aos berros ela te ataca {vida -4}, com 	\n"~
 						"\t\t seu corpo ferido você decide ....	\n\n\n";
+	cena02.recebe_Dano = true;
+	cena02.dano[0] = 4;
 
 		altern00 = new Alternativas();
 		altern01 = new Alternativas();
@@ -144,6 +150,8 @@ void IniciarlizarCenas(Game jogo)
 	cena03.descricao = 	"\t Voce decide correr para frente com medo, desviando de arbustos e arvores que mal 		\n"~
 						"\t\t podiam serem vistas no escuro, ate que voce desliza e cai de um barranco {vida -1}.	\n"~
 						"\t\t Atordoado voce se levanta e observa uma luz em meio a escuridao.	\n\n\n";
+	cena03.recebe_Dano = true;
+	cena03.dano[0] = 1;
 
 		altern00 = new Alternativas();
 		altern00.opcao = "[A] Ir até a Luz. 	\n";
@@ -1017,7 +1025,13 @@ int apresentarCena(Game jogo){
 		}
 	}
 
-	writef("\n\t\t\t\t\t\t\t\tPressione \"V\" para ver o Invetario ");
+	if (jogo.vetor_Cenas[numero_cena].recebe_Dano == true){
+		receber_Dano(jogo,numero_cena);	
+	}	
+
+	writef("\n\t\t\t\t\t\t\t\tVida: %d",jogo.vida);
+	writefln("\n\t\t\t\t\t\t\t\tPressione \"V\" para ver o Invetario ");
+	writef("\n\t\t\t\t\t\t\t\tPressione \"Q\" para sair do Jogo! ");
 
 	if (jogo.vetor_Cenas[numero_cena].tamanhoCaminhos != 0){
 		writef("\nOpcao: ");
@@ -1071,6 +1085,11 @@ int apresentarCena(Game jogo){
 					verInventario(jogo);
 					break;
 
+				case('Q'):
+				case('q'):
+					sair_Jogo();
+					break;
+				
 				default:
 					writefln("Caractere Invalido!");
 
@@ -1102,6 +1121,16 @@ int apresentarCena(Game jogo){
 
 	}
 	return 0;
+}
+
+void sair_Jogo(){
+	killSound();	
+	exit(0);
+}
+
+void receber_Dano(Game jogo,int numero_cena){
+	writefln("\n\n\n<DANO -%d>",jogo.vetor_Cenas[numero_cena].dano[0]);
+	jogo.vida = jogo.vida - jogo.vetor_Cenas[numero_cena].dano[0];
 }
 
 void verInventario(Game jogo){
