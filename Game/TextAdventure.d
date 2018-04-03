@@ -988,6 +988,7 @@ int apresentarCena(Game jogo){
 		}
 	}
 
+	writef("\n\t\t\t\t\t\t\t\tPressione \"V\" para ver o Invetario ");
 
 	if (jogo.vetor_Cenas[numero_cena].tamanhoCaminhos != 0){
 		writef("\nOpcao: ");
@@ -1075,14 +1076,18 @@ int apresentarCena(Game jogo){
 }
 
 void verInventario(Game jogo){
-	string teclado;
+	char teclado;
 
-	while(teclado != "q" || teclado != "Q")
+	writefln("Eperte \"Q\" para sair!");
+	while((teclado != 'q') && (teclado != 'Q')){	
 		for(int i=0;i<jogo.bolsa.qtd_Inventario;i++){
 			writef("Nome: %s\n",jogo.bolsa.itensObtidos[i].nome);
 			writef("Texto: %s\n",jogo.bolsa.itensObtidos[i].texto);
 			writef("Descricao: %s\n",jogo.bolsa.itensObtidos[i].descricao);
 		}
+		stdout.flush();
+		scanf("%s", &teclado);
+	}
 }
 
 
