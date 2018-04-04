@@ -1,16 +1,20 @@
 
 	Cliper de Papel (Caixa):  
 		id: 		00
-		nome:		Cliper de Papel
-		texto:		PEGAR CLIPE DE PAPEL 
+		nome:		Clipe
 		descrição: 	Muito útil para manter seus papéis juntos e organizados
 		obtido:		True|False
 
 	Pedaço de Arame (Garagem):
 		id: 		01
-		nome: 		Pedaço de Arame
-		texto: 		PEGAR PEDAÇO DE ARAME 
+		nome: 		Arame
 		descrição: 	Talvez se combinar com outra coisa se torne mais útil
+		obtido: 	True|False
+
+	Pedaço de Arame (Garagem):
+		id: 		02
+		nome: 		Grampo
+		descrição: 	Talvez eu possa abrir coisas com ela
 		obtido: 	True|False
 
 

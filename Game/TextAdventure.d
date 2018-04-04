@@ -21,9 +21,9 @@ class Inventario{
 class Cenas{
 	int id;
 	string titulo;
-	Itens[15] item;
+	Itens[5] item;
 	string descricao;
-	Alternativas[10] caminhos;
+	Alternativas[6] caminhos;
 	int tamanhoCaminhos;
 	int tamanhoItem;
 	int dano;
@@ -34,7 +34,6 @@ class Alternativas{
 	string opcao;
 	string mensagem;
 	int prox_cena;
-	bool ver_Opcao = true;
 }
 
 class Itens{
@@ -42,7 +41,7 @@ class Itens{
 	string 	nome;
 	string	texto;
 	string 	descricao;
-	bool 	obtido;
+	bool 	obtido = false;
 }
 
 
@@ -198,7 +197,7 @@ void IniciarlizarCenas(Game jogo){
 	cena07.titulo = "A Floresta part. 5.	\n";
 	cena07.item = null;
 	cena07.descricao = 	"\tA cada passo que você se aproxima da luz, percebe que se trata de uma simples casa abandonada, \n"~
-						"\t\tvoce nota que na frente existe uma velha PORTA, e um CAMINHO que leva aos arredores da casa. \n"~
+						"\t\tvoce nota que na frente existe uma velha PORTA e um CAMINHO que leva aos arredores da casa. \n"~
 						"\t\tVocê para em frente dela e decide ....\n\n\n";
 
 		altern00 = new Alternativas();
@@ -207,7 +206,7 @@ void IniciarlizarCenas(Game jogo){
 		altern03 = new Alternativas();
 		altern04 = new Alternativas();
 
-		altern01.opcao = "use caminho\n";
+		altern01.opcao = "use caminho";
 		altern01.mensagem = null;
 		altern01.prox_cena = 08;
 		altern02.opcao = "use porta";
@@ -234,7 +233,7 @@ void IniciarlizarCenas(Game jogo){
 	cena08.id = 08;
 	cena08.titulo = "A Casa. 	\n";
 	cena08.item = null;
-	cena08.descricao = 	"\t Ao vasculhar a os arredores da casa voce percebe uma caixa de CORREIOS e uma OFICINA na garagem 	\n"~
+	cena08.descricao = 	"\tAo vasculhar a os arredores da casa voce percebe uma caixa de CORREIOS e uma OFICINA na garagem 	\n"~
 						"\t\tcom os portoes abertos, alem de notar o CAMINHO obscuro de volta a entrada da casa.	\n"~
 						"\t\tEntao voce decide ....\n\n\n";
 
@@ -268,11 +267,10 @@ void IniciarlizarCenas(Game jogo){
 
 		Itens item01 = new Itens();
 		item01.id = 01;
-		item01.nome = "Pedaco de Arame";
+		item01.nome = "arame";
 		item01.descricao = "\t Talvez se combinar com outra coisa se torne mais util. 	\n";
-		item01.obtido = false;
 
-	cena09.item[2] = item01;
+	cena09.item[0] = item01;
 	cena09.descricao = 	"\tAo chegar na garagem voce começa a vasculhar e nota que existe um pedaço de ARAME,		\n"~
 						"\t\tvoce pode querer querer voltar pelo CAMINHO para a casa ou confiar no seu senso		\n"~
 						"\t\tde EXPLORAR os arredores....	\n\n\n";
@@ -306,17 +304,16 @@ void IniciarlizarCenas(Game jogo){
 
 		Itens item04 = new Itens();
 		item04.id = 04;
-		item04.nome = "Carta";
+		item04.nome = "carta";
 		item04.descricao = "\t Existe um texto nela: \"Obrigado por testar nosso jogo em TextAdventure!.\"	\n";
-		item04.obtido = false;
 
 		Itens item00 = new Itens();
 		item00.id = 00;
-		item00.nome = "Clipe de Papel";
+		item00.nome = "clipe";
 		item00.descricao = "Muito util para manter seus papeis juntos e organizados.";
 
-	cena10.item[2] = item04;
-	cena10.item[3] = item00;
+	cena10.item[0] = item04;
+	cena10.item[1] = item00;
 
 	cena10.descricao = 	"\tVocê chega à caixa de correios a abre e nota que existe nela uma CARTA e 	\n"~
 						"\t\tum CLIPE de papel, podendo ir pelo CAMINHO para a porta da casa ou 		\n"~
@@ -429,7 +426,11 @@ void funcao_quit(){
 	exit(0);
 }
 
-void funcao_use(Game jogo, int numero_cena, string comando){
+void esperarSegundos(int time){
+	Thread.sleep(dur!("seconds")( time ));
+}
+
+bool funcao_use(Game jogo, int numero_cena, string comando){
 	auto comando_split = comando.split(" ");
 
 	switch(comando_split.length){
@@ -438,34 +439,78 @@ void funcao_use(Game jogo, int numero_cena, string comando){
 				if(jogo.vetor_Cenas[numero_cena].caminhos[i].opcao == comando){
 
 					if(jogo.vetor_Cenas[numero_cena].caminhos[i].prox_cena == -1 ){
-						writef(jogo.vetor_Cenas[numero_cena].caminhos[i].mensagem);
+						writef("\n\n\n\t%s",jogo.vetor_Cenas[numero_cena].caminhos[i].mensagem);
+						esperarSegundos(2);
+						return true;
 					}
 					else{
 						jogo.cena_Atual = jogo.vetor_Cenas[numero_cena].caminhos[i].prox_cena;
+						return true;
 					}
-
 				}
 			}
+
 			break;
 
 		case(4):
-		
 			break;
 
 		default:
 			writefln("Comando Invalido!");
+			esperarSegundos(2);
 			break;
 	}
+	writefln("Comando Invalido!");
+	esperarSegundos(2);
 
-
+	return false;
 }
 
 void funcao_get(Game jogo, int numero_cena, string comando){
-	
+	auto comando_split = comando.split(" ");
+
+	switch(comando_split.length){
+		case(2):
+
+			for (int i=0;i<jogo.vetor_Cenas[numero_cena].tamanhoCaminhos;i++){
+				if(jogo.vetor_Cenas[numero_cena].caminhos[i].opcao == comando){
+					adiconar_ItemIventario(jogo,numero_cena,comando_split[1]);
+				}
+			}
+			break;
+
+		default:
+			writefln("Comando Invalido!");
+			esperarSegundos(2);
+			break;
+	}
 }
 
-void funcao_invetory(Game jogo, int numero_cena, string comando){
-	
+void funcao_invetory(Game jogo, int numero_cena){
+	string comando;
+
+	while(comando != "quit"){	
+		comando = strip(stdin.readln());
+		auto comando_split = comando.split(" ");
+
+		ver_Inventario(jogo);
+
+		switch(comando_split.length){
+			case(4):
+				if(comando_split[0] == "use" && comando_split[2] == "with"){
+					//chamar comando combine itens
+				}	
+				else{
+					writefln("Conmando Invalido!");
+					esperarSegundos(2);
+				}
+				break;
+		
+			default:
+				writefln("Conmando Invalido!");
+				esperarSegundos(2);
+		}
+	}
 }
 
 void funcao_check(Game jogo, int numero_cena, string comando){
@@ -512,7 +557,7 @@ int apresentarCena(Game jogo){
 
 		case("inventory"):
 		case("INVENTORY"):
-			funcao_invetory(jogo,numero_cena,comando);
+			funcao_invetory(jogo,numero_cena);
 			break;
 
 		case("check"):
@@ -537,9 +582,43 @@ int apresentarCena(Game jogo){
 
 		default:
 			writefln("Comando Invalido!");
+			esperarSegundos(2);
 			break;	
 	}
 	return 0;
+}
+
+void combinar_Itens(Game jogo, string comando){
+	auto comando_split = comando.split(" ");
+
+	string item01 = comando_split[1];
+	string item02 = comando_split[3];
+	bool tem_Item01 = false;
+	bool tem_Item02 = false;
+
+	for (int i=0;i<jogo.bolsa.qtd_Inventario;i++){
+		if(jogo.bolsa.itensObtidos[i].nome == item01){
+			tem_Item01 = true;
+		}
+		if(jogo.bolsa.itensObtidos[i].nome == item02){
+			tem_Item02 = true;
+		}
+	}
+
+	if(tem_Item01 == true && tem_Item02 == true){
+		//criar novo item e adicionar no inventario
+	}
+
+
+}
+
+
+void ver_Inventario(Game jogo){
+	for(int i=0;i<jogo.bolsa.qtd_Inventario;i++){
+		writef("\tNome: %s\n",jogo.bolsa.itensObtidos[i].nome);
+		writef("\tTexto: %s\n",jogo.bolsa.itensObtidos[i].texto);
+		writef("\tDescricao: %s\n",jogo.bolsa.itensObtidos[i].descricao);
+	}
 }
 
 
@@ -551,19 +630,45 @@ void recebe_Dano(Game jogo,int numero_cena){
 	}
 }
 
+void adiconar_ItemIventario(Game jogo,int numero_cena, string item){
+	Itens aux = null;
+
+	for(int i=0;i<jogo.vetor_Cenas[numero_cena].tamanhoItem;i++){
+		
+		if(jogo.vetor_Cenas[numero_cena].item[i].nome == item){
+
+			if(jogo.vetor_Cenas[numero_cena].item[i].obtido == false){
+				aux = jogo.vetor_Cenas[numero_cena].item[i];
+				jogo.bolsa.itensObtidos[jogo.bolsa.qtd_Inventario] = aux;
+				jogo.bolsa.qtd_Inventario++;	
+				jogo.vetor_Cenas[numero_cena].item[i].obtido = true;
+
+				writefln("Item Adquirido: %s \n",jogo.vetor_Cenas[numero_cena].item[i].nome);
+				esperarSegundos(2);
+
+				break;
+			}
+			else{
+				writefln("Item \"%s\" ja esta no Invetario \n",jogo.vetor_Cenas[numero_cena].item[i].nome);
+				esperarSegundos(2);				
+			}
+		}	
+	}
+}
 
 
 void main(){
 	Game jogo = new Game();
 	int cena=0;
 	IniciarlizarCenas(jogo);
-	string musicaAmbiente = "soundEffects/ambientMusic.mp3";
+	
+	/*string musicaAmbiente = "sjogo.vetor_Cenas[numero_cena]oundEffects/ambientMusic.mp3";
 
 	if(testaSom()){
 		soundPlayerAmbiente(musicaAmbiente);
 	} else {
 		write("mpg123 nao localizado no sistema!. Os sons do jogo nao serao reproduzidos! ");
-	}
+	}*/	
 
 
 	while(cena != 11){
