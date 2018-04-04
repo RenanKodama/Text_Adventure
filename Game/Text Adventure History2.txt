@@ -1,0 +1,180 @@
+
+	Cliper de Papel (Caixa):  
+		id: 		00
+		nome:		Cliper de Papel
+		texto:		PEGAR CLIPE DE PAPEL 
+		descrição: 	Muito útil para manter seus papéis juntos e organizados
+		obtido:		True|False
+
+	Pedaço de Arame (Garagem):
+		id: 		01
+		nome: 		Pedaço de Arame
+		texto: 		PEGAR PEDAÇO DE ARAME 
+		descrição: 	Talvez se combinar com outra coisa se torne mais útil
+		obtido: 	True|False
+
+
+
+Cena 01 (Prologo) 
+	Quando você se dá conta, está em um lugar totalmente diferente do acostumado, 
+	não se lembra como foi parar lá e muito menos onde está, tudo é muito escuro,
+	você carrega apenas uma mochila nas costas, voce apenas ve um CAMINHO a sua frente.
+	
+
+	/>use caminho
+		{Cena 02}
+
+	/>inventory
+		{Inventário}
+
+
+Cena 02	(A Floresta part 1)
+	Você não consegue ver nada a frente, você começa a se apavorar e sua respiração 
+	se torna ofegante, quando de repente você escuta galhos se quebrando [SOM DE GALHOS 
+	QUEBRANDO] então você se pergunta, devo ir para ANDAR,CORRER ou esconder nos ARBUSTOS ? ... 
+	
+
+	/>use andar
+		{Cena 03}
+
+	/>use correr
+		{Cena 04}
+
+	/>use arbustos
+		{Cena 05}
+
+	/>inventory.
+		{Inventário}
+
+
+Cena 03 (A Floresta part 2)
+	Você anda com cautela para frente porem é surpreendido pelas costas por uma 
+	criatura indescritivél e apavorante, aos berros ela te ataca {vida -4}, com 
+	seu corpo ferido você pensa em BATER no monstro  ou CORRER ? ....
+	
+	
+	/>use correr
+		{Cena 04}
+
+	/>use bater
+		{Cena 07}
+
+	/>inventory
+		{Inventário}
+
+
+Cena 04 (A Floresta part 3)
+	Você decide correr para frente com medo, desviando de arbustos e árvores que mal 
+	podiam serem vistas no escuro, até que você desliza e cai de um barranco {vida -1}.
+	Atordoado você se levanta e observa a sua frente uma luz em meio à escuridão e voce
+	decide ANDAR em direçao a ela ....
+
+
+	/>use andar
+		{Cena 08}
+
+	/>inventory
+		{Inventário}
+
+
+Cena 05 (A Floresta part 4)
+	Você decide ficar espreitado nos arbustos, quando a criatura assombrosa passa diante
+	de você, porém é impossível distiguila de um animal ou de um humano. Apavorado você espera a
+	criatura se perder em meio à escuridão. Então você se depara com uma luz a sua frente e 
+	resolve ANDAR em dirçao a ela ....
+
+	/>use andar
+		{Cena 08}
+
+	/>inventory
+		{Inventário}
+
+
+Cena 07 (GAME OVER)
+	Você morreu destroçado pelo monstro !	
+				GAME OVER !
+	dica: combate corpo a corpo é morte certa !
+
+	<RESTART> <QUIT>
+
+
+Cena 08 (A Floresta part 5)
+	A cada passo que você se aproxima da luz, percebe que se trata de uma simples casa abandonada, voce nota que 
+	na frente existe uma velha PORTA, e um CAMINHO que leva aos arredores da casa. Você para em frente dela e decide ....
+
+
+	/>use caminho
+		{Cena09}
+
+	/>use porta
+		{[SOM DE PORTA TRANCADA]}
+
+	/>check porta
+
+	/>use grampo with porta
+		{Cena12}
+
+	/>inventory
+		{Inventário}
+		
+
+Cena 09 (A Casa)
+	Ao vasculhar a os arredores da casa voce percebe uma caixa de CORREIOS e uma OFICINA na garagem com os portoes abertos, alem de 
+	notar o CAMINHO obscuro de volta a entrada da casa. Entao voce decide ....
+
+
+	/>use garagem
+		{Cena 10}
+
+	/>use correios
+		{Cena 11}
+
+	/>use caminho
+		{Cena 08}
+
+	/>inventory
+		{Inventário}
+
+
+Cena 10 (A Garagem)
+	Ao chegar na garagem voce começa a vasculhar e nota que existe um pedaço de ARAME, voce pode 
+	querer querer voltar pelo CAMINHO para a casa ou confiar no seu senso de EXPLORAR os arredores....
+
+	/>use caminho
+		{Cena 08}
+
+	/>use explorar
+		[SOM DE ANDAR EM FOLHAS SECAS]
+		{Cena 09}
+
+	/>get arame
+
+
+	/>inventory
+		{Inventário}
+
+
+Cena 11 (A caixa)
+	Você chega à caixa de correios a abre e nota que existe nela uma CARTA e um CLIPE de papel, podendo
+	ir pelo CAMINHO para a porta da casa ou EXPLORAR os arredores  ....
+
+
+	/>use explorar
+		[SOM DE ANDAR EM FOLHAS SECAS]
+		{Cena 09}
+
+	/>use caminho 
+		{Cena 08}
+
+	/>get carta
+
+	/>get clipe
+
+	/>inventory
+		{Inventário}
+
+
+Cena 12 (o FIM)
+	Ao entrar na casa voce sente a presença do mal e a escuridao começa a te envolver, enquanto seu coraçao começa
+	a pulsar voce sente sua visao ficando cada vez mais turva ate que voce desmaia e cai sobre o chao. Alguns momentos
+	depois voce acorda e esta em um lugar totalmente diferente e escuro ....  

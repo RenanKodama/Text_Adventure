@@ -1,4 +1,5 @@
 import std.stdio;
+import std.string;
 import std.conv;
 
 //Baseado em C e C++
@@ -40,10 +41,19 @@ void main(char[][] args){
 	
 	string teste;
 
-	scanf ("%s", &teste);
+
+	
+	teste = strip(stdin.readln());
 	printf ("%s\n", &teste);
 
-	ini.inicializar();
-	ini.criarvetor();
+
+
+
+	if (teste == "oi"){
+		printf("Oiiiiiiiiiiiiiiiiiiiiiiiiii");
+	}
+
+	//ini.inicializar();
+	//ini.criarvetor();
 
 }
