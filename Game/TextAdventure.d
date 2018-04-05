@@ -39,7 +39,6 @@ class Alternativas{
 class Itens{
 	int 	id;
 	string 	nome;
-	string	texto;
 	string 	descricao;
 	bool 	obtido = false;
 }
@@ -219,7 +218,7 @@ void IniciarlizarCenas(Game jogo){
 		altern04.mensagem = null;
 		altern04.prox_cena = 11;
 
-	cena07.tamanhoCaminhos = 04;
+	cena07.tamanhoCaminhos = 05;
 	cena07.tamanhoItem = 00;
 	cena07.caminhos[0] = altern00;
 	cena07.caminhos[1] = altern01;
@@ -351,7 +350,7 @@ void IniciarlizarCenas(Game jogo){
 	cena11.id = 11;
 	cena11.titulo = "O Fim 	\n";
 	cena11.item = null;
-	cena11.descricao = 	"\t Ao entrar na casa voce sente a presença do mal e a escuridao começa a te envolver, enquanto seu 			\n"~
+	cena11.descricao = 	"\tAo entrar na casa voce sente a presença do mal e a escuridao começa a te envolver, enquanto seu 			\n"~
 						"\t\tcoraçao começa a pulsar voce sente sua visao ficando cada vez mais turva ate que voce desmaia e cai 		\n"~
 						"\t\tsobre o chao. Alguns momentos depois voce acorda e esta em um lugar totalmente diferente e escuro ....  \n\n\n";
 
@@ -455,7 +454,36 @@ bool funcao_use(Game jogo, int numero_cena, string comando){
 
 		case(4):
 
-			
+			if ((comando_split[0] == "use") && (comando_split[2] == "with")){
+				bool tem_item = false;
+				string item = comando_split[1];
+
+				for (int i=0;i<jogo.bolsa.qtd_Inventario;i++){
+					if(jogo.bolsa.itensObtidos[i].nome == item){
+						tem_item = true;
+					}
+				}
+
+				if (tem_item == true){ 
+					for (int i=0;i<jogo.vetor_Cenas[numero_cena].tamanhoCaminhos;i++){
+						writefln(jogo.vetor_Cenas[numero_cena].caminhos[i].opcao);
+
+						if(jogo.vetor_Cenas[numero_cena].caminhos[i].opcao == comando){
+							jogo.cena_Atual = jogo.vetor_Cenas[numero_cena].caminhos[i].prox_cena;
+							return true;
+						}
+					}
+				}
+				else{
+					writefln("Item nao Disponivel!");
+					esperarSegundos(2);
+				}
+			}
+			else{
+				writefln("Comando Invalido!");
+				esperarSegundos(2);
+			}
+
 			break;
 
 		default:
@@ -463,8 +491,6 @@ bool funcao_use(Game jogo, int numero_cena, string comando){
 			esperarSegundos(2);
 			break;
 	}
-	writefln("Comando Invalido!");
-	esperarSegundos(2);
 
 	return false;
 }
@@ -496,7 +522,7 @@ void funcao_invetory(Game jogo, int numero_cena){
 		limparTela();
 		writefln("\n\n\tInventario \n");
 
-		writefln("\n\tItens: ")
+		writefln("\n\tItens: ");
 		ver_Inventario(jogo);
 
 		writef("\ninventario/>");
