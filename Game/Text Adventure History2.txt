@@ -11,8 +11,14 @@
 		descrição: 	Talvez se combinar com outra coisa se torne mais útil
 		obtido: 	True|False
 
-	Pedaço de Arame (Garagem):
+	Grampo de Cabelo (Combinação 01+00):
 		id: 		02
+		nome: 		Grampo
+		descrição: 	Talvez eu possa abrir coisas com ela
+		obtido: 	True|False
+
+	Carta (Caixa)
+		id: 		03
 		nome: 		Grampo
 		descrição: 	Talvez eu possa abrir coisas com ela
 		obtido: 	True|False

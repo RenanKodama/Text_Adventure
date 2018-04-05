@@ -14,7 +14,7 @@ class Game{
 }
 
 class Inventario{
-	Itens[3] itensObtidos;
+	Itens[5] itensObtidos;
 	int qtd_Inventario;
 }
 
@@ -117,7 +117,7 @@ void IniciarlizarCenas(Game jogo){
 	cena02.item = null;
 	cena02.descricao = 	"\tVocê anda com cautela para frente porem é surpreendido pelas costas por uma 	\n"~
 						"\t\tcriatura indescritivél e apavorante, aos berros ela te ataca, com 	\n"~
-						"\t\tseu corpo ferido você pensa em BATER no monstro  ou CORRER ? ....	\n\n\n";	
+						"\t\tseu corpo ferido você pensa em BATER no monstro ou CORRER ? ....	\n\n\n";	
 	cena02.recebe_Dano = true;
 	cena02.dano = 4;
 
@@ -234,14 +234,15 @@ void IniciarlizarCenas(Game jogo){
 	cena08.titulo = "A Casa. 	\n";
 	cena08.item = null;
 	cena08.descricao = 	"\tAo vasculhar a os arredores da casa voce percebe uma caixa de CORREIOS e uma OFICINA na garagem 	\n"~
-						"\t\tcom os portoes abertos, alem de notar o CAMINHO obscuro de volta a entrada da casa.	\n"~
+						"\t\tcom os portoes abertos ou pode escolher o CAMINHO obscuro de volta a entrada da casa.	\n"~
 						"\t\tEntao voce decide ....\n\n\n";
 
 		altern00 = new Alternativas();
 		altern01 = new Alternativas();
 		altern02 = new Alternativas();
+		altern03 = new Alternativas();
 
-		altern00.opcao = "use garagem";
+		altern00.opcao = "use oficina";
 		altern00.mensagem = null;
 		altern00.prox_cena = 09;
 		altern01.opcao = "use correios";
@@ -268,7 +269,7 @@ void IniciarlizarCenas(Game jogo){
 		Itens item01 = new Itens();
 		item01.id = 01;
 		item01.nome = "arame";
-		item01.descricao = "\t Talvez se combinar com outra coisa se torne mais util. 	\n";
+		item01.descricao = "Talvez se combinar com outra coisa se torne mais util.";
 
 	cena09.item[0] = item01;
 	cena09.descricao = 	"\tAo chegar na garagem voce começa a vasculhar e nota que existe um pedaço de ARAME,		\n"~
@@ -303,9 +304,9 @@ void IniciarlizarCenas(Game jogo){
 	cena10.item = new Itens();
 
 		Itens item04 = new Itens();
-		item04.id = 04;
+		item04.id = 03;
 		item04.nome = "carta";
-		item04.descricao = "\t Existe um texto nela: \"Obrigado por testar nosso jogo em TextAdventure!.\"	\n";
+		item04.descricao = "Existe um texto nela: \"Obrigado por testar nosso jogo em TextAdventure!.\"";
 
 		Itens item00 = new Itens();
 		item00.id = 00;
@@ -327,7 +328,7 @@ void IniciarlizarCenas(Game jogo){
 		altern00.opcao = "use explorar";
 		altern00.mensagem = null;
 		altern00.prox_cena = 08;
-		altern01.opcao = "use caminho ";
+		altern01.opcao = "use caminho";
 		altern01.mensagem = null;
 		altern01.prox_cena = 07;
 		altern02.opcao = "get carta";
@@ -453,6 +454,8 @@ bool funcao_use(Game jogo, int numero_cena, string comando){
 			break;
 
 		case(4):
+
+			
 			break;
 
 		default:
@@ -489,26 +492,38 @@ void funcao_get(Game jogo, int numero_cena, string comando){
 void funcao_invetory(Game jogo, int numero_cena){
 	string comando;
 
-	while(comando != "quit"){	
-		comando = strip(stdin.readln());
-		auto comando_split = comando.split(" ");
+	while(comando != "quit"){
+		limparTela();
+		writefln("\n\n\tInventario \n");
 
+		writefln("\n\tItens: ")
 		ver_Inventario(jogo);
 
-		switch(comando_split.length){
-			case(4):
-				if(comando_split[0] == "use" && comando_split[2] == "with"){
-					//chamar comando combine itens
-				}	
-				else{
+		writef("\ninventario/>");
+		comando = strip(stdin.readln());
+
+		writef("\n\n\n");
+
+		auto comando_split = comando.split(" ");
+
+
+		if (comando_split.length > 1){
+			switch(comando_split.length){
+				case(4):
+					if(comando_split[0] == "use" && comando_split[2] == "with"){
+						combinar_Itens(jogo,comando);
+					}	
+					else{
+						writefln("Conmando Invalido!");
+						esperarSegundos(2);
+					}
+					break;
+			
+				default:
 					writefln("Conmando Invalido!");
 					esperarSegundos(2);
-				}
-				break;
-		
-			default:
-				writefln("Conmando Invalido!");
-				esperarSegundos(2);
+					break;
+			}
 		}
 	}
 }
@@ -538,7 +553,7 @@ int apresentarCena(Game jogo){
 	writef("\n\t\t\t\t\t\t\t\t\t\t\tVida: %d\n\n\n",jogo.vida);
 
 
-	writef("\\<");
+	writef("/<");
 	comando = strip(stdin.readln());
 	
 	
@@ -606,7 +621,43 @@ void combinar_Itens(Game jogo, string comando){
 	}
 
 	if(tem_Item01 == true && tem_Item02 == true){
-		//criar novo item e adicionar no inventario
+		if (((item01 == "clipe") && (item02 == "arame")) || ((item01 == "arame") && (item02 == "clipe"))) {
+			bool tem_item = false;
+
+			Itens item = new Itens();
+			item.id = 02;
+			item.nome = "grampo";
+			item.descricao = "Talvez eu possa abrir coisas com ela";
+			item.obtido = true;
+
+
+			for (int i=0;i<jogo.bolsa.qtd_Inventario;i++){
+				if(jogo.bolsa.itensObtidos[i].nome == item.nome){
+					tem_item = jogo.bolsa.itensObtidos[i].obtido;
+					break;
+				}
+			}
+
+			if(tem_item == false){
+				jogo.bolsa.itensObtidos[jogo.bolsa.qtd_Inventario] = item;
+				jogo.bolsa.qtd_Inventario++;
+				
+				writefln("Item Adquirido: %s \n",item.nome);
+				esperarSegundos(2);
+			}
+			else{
+				writefln("Item \"%s\" ja esta no Invetario \n",item.nome);
+				esperarSegundos(2);	
+			}
+
+		}
+		else{
+			writefln("Combinaçao Invalida!");
+		}
+	}
+	else{
+		writefln("Item nao disponivel no Inventario!");
+		esperarSegundos(2);
 	}
 
 
@@ -615,9 +666,8 @@ void combinar_Itens(Game jogo, string comando){
 
 void ver_Inventario(Game jogo){
 	for(int i=0;i<jogo.bolsa.qtd_Inventario;i++){
-		writef("\tNome: %s\n",jogo.bolsa.itensObtidos[i].nome);
-		writef("\tTexto: %s\n",jogo.bolsa.itensObtidos[i].texto);
-		writef("\tDescricao: %s\n",jogo.bolsa.itensObtidos[i].descricao);
+		writef("\t\tNome: %s\n",jogo.bolsa.itensObtidos[i].nome);
+		writefln("\t\tDescricao: %s\n\n",jogo.bolsa.itensObtidos[i].descricao);
 	}
 }
 
