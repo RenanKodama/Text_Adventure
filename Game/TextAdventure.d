@@ -4,6 +4,7 @@ import core.stdc.stdlib;
 import core.stdc.time;			
 import core.thread;
 import std.string;
+import std.file;
 
 
 class Game{
@@ -11,6 +12,9 @@ class Game{
 	int cena_Atual;
 	Inventario bolsa;
 	int vida;
+
+	Itens[4] itensJogo;
+	int qtd_ItensJogo = 4;
 }
 
 class Inventario{
@@ -57,6 +61,7 @@ void IniciarlizarCenas(Game jogo){
 	Alternativas altern04;
 	Alternativas altern05;
 	Alternativas altern06;
+
 
 //---------------------------------------------------------------------------------------------------------------------------
 
@@ -270,6 +275,8 @@ void IniciarlizarCenas(Game jogo){
 		item01.nome = "arame";
 		item01.descricao = "Talvez se combinar com outra coisa se torne mais util.";
 
+	jogo.itensJogo[0] = item01; 
+
 	cena09.item[0] = item01;
 	cena09.descricao = 	"\tAo chegar na garagem voce começa a vasculhar e nota que existe um pedaço de ARAME,		\n"~
 						"\t\tvoce pode querer querer voltar pelo CAMINHO para a casa ou confiar no seu senso		\n"~
@@ -302,18 +309,21 @@ void IniciarlizarCenas(Game jogo){
 	cena10.titulo = "A Caixa. 	\n";
 	cena10.item = new Itens();
 
-		Itens item04 = new Itens();
-		item04.id = 03;
-		item04.nome = "carta";
-		item04.descricao = "Existe um texto nela: \"Obrigado por testar nosso jogo em TextAdventure!.\"";
+		Itens item03 = new Itens();
+		item03.id = 03;
+		item03.nome = "carta";
+		item03.descricao = "Existe um texto nela: \"Obrigado por testar nosso jogo em TextAdventure!.\"";
 
 		Itens item00 = new Itens();
 		item00.id = 00;
 		item00.nome = "clipe";
 		item00.descricao = "Muito util para manter seus papeis juntos e organizados.";
 
-	cena10.item[0] = item04;
+	jogo.itensJogo[1] = item03; 
+	jogo.itensJogo[2] = item00; 
+	cena10.item[0] = item03;
 	cena10.item[1] = item00;
+
 
 	cena10.descricao = 	"\tVocê chega à caixa de correios a abre e nota que existe nela uma CARTA e 	\n"~
 						"\t\tum CLIPE de papel, podendo ir pelo CAMINHO para a porta da casa ou 		\n"~
@@ -372,8 +382,14 @@ void IniciarlizarCenas(Game jogo){
 	jogo.vetor_Cenas[9] = cena09;
 	jogo.vetor_Cenas[10] = cena10;
 	jogo.vetor_Cenas[11] = cena11;
+
+	Itens item02 = new Itens();
+	item02.id = 02;
+	item02.nome = "grampo";
+	item02.descricao = "Talvez eu possa abrir coisas com ela";
+
+	jogo.itensJogo[3] = item02;
 }
-//---------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -579,7 +595,24 @@ void funcao_check(Game jogo, int numero_cena, string comando){
 }
 
 void funcao_save(Game jogo, int numero_cena, string comando){
+	auto comando_split = comando.split(" ");
 
+	if (comando_split.length == 1){
+		File arquivo = File("Save/Save.txt","w");
+
+		arquivo.writeln(numero_cena);
+
+		for (int i=0; i<jogo.bolsa.qtd_Inventario; i++){
+			arquivo.write(jogo.bolsa.itensObtidos[i].id," ");
+		}
+
+		writefln("\n\tJogo gravado com Sucesso!");
+		esperarSegundos(2);
+	} 	
+	else{
+		writefln("Comando Invalido!");
+		esperarSegundos(1);
+	}
 }
 
 void funcao_load(Game jogo, int numero_cena, string comando){
@@ -600,51 +633,52 @@ int apresentarCena(Game jogo){
 
 
 	writef("/<");
+
 	comando = strip(stdin.readln());
 	
-	
+	if (comando != ""){
+		auto first_argument = comando.split(" ");
+		switch(first_argument[0]){
+			case("use"):
+			case("USE"):
+				funcao_use(jogo,numero_cena,comando);
+				break;
 
-	auto first_argument = comando.split(" ");
-	switch(first_argument[0]){
-		case("use"):
-		case("USE"):
-			funcao_use(jogo,numero_cena,comando);
-			break;
+			case("get"):
+			case("GET"):
+				funcao_get(jogo,numero_cena,comando);
+				break;
 
-		case("get"):
-		case("GET"):
-			funcao_get(jogo,numero_cena,comando);
-			break;
+			case("inventory"):
+			case("INVENTORY"):
+				funcao_invetory(jogo,numero_cena);
+				break;
 
-		case("inventory"):
-		case("INVENTORY"):
-			funcao_invetory(jogo,numero_cena);
-			break;
+			case("check"):
+			case("CHECK"):
+				funcao_check(jogo,numero_cena,comando);
+				break;
 
-		case("check"):
-		case("CHECK"):
-			funcao_check(jogo,numero_cena,comando);
-			break;
+			case("save"):
+			case("SAVE"):
+				funcao_save(jogo,numero_cena,comando);
+				break;
+			
+			case("load"):
+			case("LOAD"):
+				funcao_load(jogo,numero_cena,comando);
+				break;
 
-		case("save"):
-		case("SAVE"):
-			funcao_save(jogo,numero_cena,comando);
-			break;
-		
-		case("load"):
-		case("LOAD"):
-			funcao_load(jogo,numero_cena,comando);
-			break;
+			case("quit"):
+			case("QUIT"):
+				funcao_quit();
+				break;
 
-		case("quit"):
-		case("QUIT"):
-			funcao_quit();
-			break;
-
-		default:
-			writefln("Comando Invalido!");
-			esperarSegundos(1);
-			break;	
+			default:
+				writefln("Comando Invalido!");
+				esperarSegundos(1);
+				break;	
+		}
 	}
 	return 0;
 }

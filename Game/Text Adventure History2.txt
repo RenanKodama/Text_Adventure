@@ -1,5 +1,5 @@
 
-	Cliper de Papel (Caixa):  
+	Clipe de Papel (Caixa):  
 		id: 		00
 		nome:		Clipe
 		descrição: 	Muito útil para manter seus papéis juntos e organizados
@@ -20,7 +20,7 @@
 	Carta (Caixa)
 		id: 		03
 		nome: 		Grampo
-		descrição: 	Talvez eu possa abrir coisas com ela
+		descrição: 	Existe um texto nela: "Obrigado por testar nosso jogo em TextAdventure!"
 		obtido: 	True|False
 
 

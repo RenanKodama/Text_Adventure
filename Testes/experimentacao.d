@@ -33,10 +33,13 @@ class Cena{
 
 void main(){
   writeln("Testando entrada/Saída em arquivos");
+
   string nome = "arquivo.txt";
   writeln("Criando Arquivo...");
+  
   criaArquivo(nome);
   writeln("Escrevendo no arquivo...");
+  
   escrevendoArquivo(nome);
   string doArquivo =  lendoDoArquivo(nome);
   writeln("Isso estava escrito no arquivo >> ",doArquivo );
