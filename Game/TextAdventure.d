@@ -71,7 +71,7 @@ void IniciarlizarCenas(Game jogo){
 		altern00 = new Alternativas();
 
 		altern00.opcao = "use caminho";
-		altern00.mensagem = null;
+		altern00.mensagem = "É um caminho... seria bom usa-lo....?";
 		altern00.prox_cena = 01;
 
 	cena00.tamanhoCaminhos = 01;
@@ -86,20 +86,20 @@ void IniciarlizarCenas(Game jogo){
 	cena01.item = null;
 	cena01.descricao = 	"\tVocê não consegue ver nada a frente, você começa a se apavorar e sua respiração 	\n"~
 						"\t\tse torna ofegante, quando de repente você escuta galhos se quebrando 			\n"~
-						"\t\tentão você se pergunta, devo ir para ANDAR,CORRER ou esconder nos ARBUSTOS ? .... 	\n\n\n";
+						"\t\tentão você se pergunta, devo ANDAR, CORRER ou me esconder nos ARBUSTOS ? .... 	\n\n\n";
 
 		altern00 = new Alternativas();
 		altern01 = new Alternativas();
 		altern02 = new Alternativas();
 
 		altern00.opcao = "use andar";
-		altern00.mensagem = null;
+		altern00.mensagem = "....Talvez nao seja nada....";
 		altern00.prox_cena = 02;
 		altern01.opcao = "use correr";
-		altern01.mensagem = null;
+		altern01.mensagem = "....";
 		altern01.prox_cena = 03;
 		altern02.opcao = "use arbustos";
-		altern02.mensagem = null;
+		altern02.mensagem = "...Sera que me escondo?";
 		altern02.prox_cena = 04;
 
 	cena01.tamanhoCaminhos = 03;
@@ -123,10 +123,10 @@ void IniciarlizarCenas(Game jogo){
 		altern00 = new Alternativas();
 		altern01 = new Alternativas();
 		altern00.opcao = "use correr";
-		altern00.mensagem = null;
+		altern00.mensagem = "Talvez....";
 		altern00.prox_cena = 03;
 		altern01.opcao = "use bater";
-		altern01.mensagem = null;
+		altern01.mensagem = "Sera que ganho dele? ....";
 		altern01.prox_cena = 06;
 
 	cena02.tamanhoCaminhos = 02;
@@ -149,7 +149,7 @@ void IniciarlizarCenas(Game jogo){
 
 		altern00 = new Alternativas();
 		altern00.opcao = "use andar";
-		altern00.mensagem = null;
+		altern00.mensagem = "....";
 		altern00.prox_cena = 07;
 
 	cena03.tamanhoCaminhos = 01;
@@ -169,7 +169,7 @@ void IniciarlizarCenas(Game jogo){
 
 		altern00 = new Alternativas();
 		altern00.opcao = "use andar";
-		altern00.mensagem = null;
+		altern00.mensagem = "Essa luz me conforta....";
 		altern00.prox_cena = 07;
 
 	cena04.tamanhoCaminhos = 01;
@@ -206,7 +206,7 @@ void IniciarlizarCenas(Game jogo){
 		altern04 = new Alternativas();
 
 		altern01.opcao = "use caminho";
-		altern01.mensagem = null;
+		altern01.mensagem = "....";
 		altern01.prox_cena = 08;
 		altern02.opcao = "use porta";
 		altern02.mensagem = "A porta esta trancada! 	\n";
@@ -242,7 +242,7 @@ void IniciarlizarCenas(Game jogo){
 		altern03 = new Alternativas();
 
 		altern00.opcao = "use oficina";
-		altern00.mensagem = null;
+		altern00.mensagem = "Sera que existe alguma coisa la?";
 		altern00.prox_cena = 09;
 		altern01.opcao = "use correios";
 		altern01.mensagem = null;
@@ -280,13 +280,13 @@ void IniciarlizarCenas(Game jogo){
 		altern02 = new Alternativas();
 
 		altern00.opcao = "use caminho";
-		altern00.mensagem = null;
+		altern00.mensagem = "....";
 		altern00.prox_cena = 07;
 		altern01.opcao = "use explorar";
-		altern01.mensagem = null;
+		altern01.mensagem = "Seria uma boa ideia...ou nao....";
 		altern01.prox_cena = 08;
 		altern02.opcao = "get arame";
-		altern02.mensagem = null;
+		altern02.mensagem = "Talvez isso possa ser util para algo ....";
 		altern02.prox_cena = -2;
 
 	cena09.tamanhoCaminhos = 03;
@@ -325,16 +325,16 @@ void IniciarlizarCenas(Game jogo){
 		altern03 = new Alternativas();
 
 		altern00.opcao = "use explorar";
-		altern00.mensagem = null;
+		altern00.mensagem = "Seria uma boa ideia...ou nao....";
 		altern00.prox_cena = 08;
 		altern01.opcao = "use caminho";
-		altern01.mensagem = null;
+		altern01.mensagem = "A luz....";
 		altern01.prox_cena = 07;
 		altern02.opcao = "get carta";
-		altern02.mensagem = null;
+		altern02.mensagem = "Apenas uma carta ....";
 		altern02.prox_cena = -2;
 		altern03.opcao = "get clipe";
-		altern03.mensagem = null;
+		altern03.mensagem = "Talvez ele possa ser util";
 		altern03.prox_cena = -2;
 
 	cena10.tamanhoCaminhos = 04;
@@ -476,19 +476,19 @@ bool funcao_use(Game jogo, int numero_cena, string comando){
 				}
 				else{
 					writefln("Item nao Disponivel!");
-					esperarSegundos(2);
+					esperarSegundos(1);
 				}
 			}
 			else{
 				writefln("Comando Invalido!");
-				esperarSegundos(2);
+				esperarSegundos(1);
 			}
 
 			break;
 
 		default:
 			writefln("Comando Invalido!");
-			esperarSegundos(2);
+			esperarSegundos(1);
 			break;
 	}
 
@@ -510,7 +510,7 @@ void funcao_get(Game jogo, int numero_cena, string comando){
 
 		default:
 			writefln("Comando Invalido!");
-			esperarSegundos(2);
+			esperarSegundos(1);
 			break;
 	}
 }
@@ -540,14 +540,14 @@ void funcao_invetory(Game jogo, int numero_cena){
 						combinar_Itens(jogo,comando);
 					}	
 					else{
-						writefln("Conmando Invalido!");
-						esperarSegundos(2);
+						writefln("Comando Invalido!");
+						esperarSegundos(1);
 					}
 					break;
 			
 				default:
-					writefln("Conmando Invalido!");
-					esperarSegundos(2);
+					writefln("Comando Invalido!");
+					esperarSegundos(1);
 					break;
 			}
 		}
@@ -555,6 +555,26 @@ void funcao_invetory(Game jogo, int numero_cena){
 }
 
 void funcao_check(Game jogo, int numero_cena, string comando){
+	auto comando_split  = comando.split(" ");
+
+	if(comando_split.length == 2){
+		for (int i=0;i<jogo.vetor_Cenas[numero_cena].tamanhoCaminhos;i++){
+			auto aux_split = jogo.vetor_Cenas[numero_cena].caminhos[i].opcao.split(" ");
+			string objeto = aux_split[1];
+
+			if(objeto == comando_split[1]){
+				writefln("\n%s\n\n",jogo.vetor_Cenas[numero_cena].caminhos[i].mensagem);
+				esperarSegundos(2);
+			}
+
+		} 
+
+	}
+	else{
+		writefln("Comando Invalido!");
+		esperarSegundos(1);
+	}
+
 
 }
 
@@ -623,7 +643,7 @@ int apresentarCena(Game jogo){
 
 		default:
 			writefln("Comando Invalido!");
-			esperarSegundos(2);
+			esperarSegundos(1);
 			break;	
 	}
 	return 0;
@@ -673,7 +693,7 @@ void combinar_Itens(Game jogo, string comando){
 			}
 			else{
 				writefln("Item \"%s\" ja esta no Invetario \n",item.nome);
-				esperarSegundos(2);	
+				esperarSegundos(1);	
 			}
 
 		}
@@ -683,7 +703,7 @@ void combinar_Itens(Game jogo, string comando){
 	}
 	else{
 		writefln("Item nao disponivel no Inventario!");
-		esperarSegundos(2);
+		esperarSegundos(1);
 	}
 
 
