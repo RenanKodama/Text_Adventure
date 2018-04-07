@@ -29,6 +29,7 @@ class Cenas{
 	string descricao;
 	Alternativas[6] caminhos;
 	int tamanhoCaminhos;
+	string somCena;
 	int tamanhoItem;
 	int dano;
 	bool recebe_Dano = false;
@@ -79,6 +80,7 @@ void IniciarlizarCenas(Game jogo){
 		altern00.mensagem = "É um caminho... seria bom usa-lo....?";
 		altern00.prox_cena = 01;
 
+	cena00.somCena = null;
 	cena00.tamanhoCaminhos = 01;
 	cena00.tamanhoItem = 00;
 	cena00.caminhos[0] = altern00;
@@ -107,6 +109,7 @@ void IniciarlizarCenas(Game jogo){
 		altern02.mensagem = "...Sera que me escondo?";
 		altern02.prox_cena = 04;
 
+	cena01.somCena = "soundEffects/breakingWood.mp3";
 	cena01.tamanhoCaminhos = 03;
 	cena01.tamanhoItem = 00;
 	cena01.caminhos[0] = altern00;
@@ -134,6 +137,7 @@ void IniciarlizarCenas(Game jogo){
 		altern01.mensagem = "Sera que ganho dele? ....";
 		altern01.prox_cena = 06;
 
+	cena02.somCena = null;
 	cena02.tamanhoCaminhos = 02;
 	cena02.tamanhoItem = 00;
 	cena02.caminhos[0] = altern00;
@@ -157,6 +161,7 @@ void IniciarlizarCenas(Game jogo){
 		altern00.mensagem = "....";
 		altern00.prox_cena = 07;
 
+	cena03.somCena = "";
 	cena03.tamanhoCaminhos = 01;
 	cena03.tamanhoItem = 00;
 	cena03.caminhos[0] = altern00;
@@ -177,6 +182,7 @@ void IniciarlizarCenas(Game jogo){
 		altern00.mensagem = "Essa luz me conforta....";
 		altern00.prox_cena = 07;
 
+	cena04.somCena = "";
 	cena04.tamanhoCaminhos = 01;
 	cena04.tamanhoItem = 00;
 	cena04.caminhos[0] = altern00;
