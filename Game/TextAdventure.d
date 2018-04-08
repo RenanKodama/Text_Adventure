@@ -616,6 +616,9 @@ void funcao_save(Game jogo, int numero_cena, string comando){
 }
 
 void funcao_load(Game jogo, int numero_cena, string comando){
+	if (comando_split.length == 1){
+			
+	}
 
 }
 
