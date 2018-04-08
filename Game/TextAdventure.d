@@ -195,9 +195,8 @@ void IniciarlizarCenas(Game jogo){
 	cena06.id = 06;
 	cena06.titulo = "GAME OVER !. 	\n";
 	cena06.item = null;
-	cena06.descricao = 	"\t Você morreu destroçado pelo monstro !	\n"~
-						"\t\t 		GAME OVER !						\n\n"~
-						"\t\t dica: combate corpo a corpo e morte certa !	\n\n\n";
+	cena06.descricao = 	"\t\t << Voce Morreu! >> \n"~
+						"\t\t\t      GAME OVER ! \n\n\n";
 
 	cena06.tamanhoCaminhos = 00;
 	cena06.tamanhoItem = 00;
@@ -473,7 +472,6 @@ bool funcao_use(Game jogo, int numero_cena, string comando){
 					}
 				}
 			}
-
 			break;
 
 		case(4):
@@ -490,7 +488,6 @@ bool funcao_use(Game jogo, int numero_cena, string comando){
 
 				if (tem_item == true){ 
 					for (int i=0;i<jogo.vetor_Cenas[numero_cena].tamanhoCaminhos;i++){
-						writefln(jogo.vetor_Cenas[numero_cena].caminhos[i].opcao);
 
 						if(jogo.vetor_Cenas[numero_cena].caminhos[i].opcao == comando){
 							jogo.cena_Atual = jogo.vetor_Cenas[numero_cena].caminhos[i].prox_cena;
@@ -507,7 +504,6 @@ bool funcao_use(Game jogo, int numero_cena, string comando){
 				writefln("Comando Invalido!");
 				esperarSegundos(1);
 			}
-
 			break;
 
 		default:
@@ -515,7 +511,6 @@ bool funcao_use(Game jogo, int numero_cena, string comando){
 			esperarSegundos(1);
 			break;
 	}
-
 	return false;
 }
 
@@ -600,8 +595,6 @@ void funcao_check(Game jogo, int numero_cena, string comando){
 		writefln("Comando Invalido!");
 		esperarSegundos(1);
 	}
-
-
 }
 
 void funcao_save(Game jogo, int numero_cena, string comando){
@@ -611,9 +604,7 @@ void funcao_save(Game jogo, int numero_cena, string comando){
 		File arquivo = File("Save/Save.txt","w");
 
 		arquivo.writeln(numero_cena);
-
 		arquivo.writeln(jogo.vida);
-
 		for (int i=0; i<jogo.bolsa.qtd_Inventario; i++){
 			arquivo.write(jogo.bolsa.itensObtidos[i].id," ");
 		}
@@ -671,6 +662,18 @@ void funcao_load(Game jogo, int numero_cena, string comando){
 	}
 }
 
+void funcao_newGame(Game jogo){
+	writefln("\n Iniciando Novo Jogo ....");
+	esperarSegundos(2);
+	
+	IniciarlizarCenas(jogo);
+}
+
+void verifica_Vida(Game jogo){
+	if(jogo.vida == 0){
+		jogo.cena_Atual = 06;
+	}
+}
 
 int apresentarCena(Game jogo){
 	int numero_cena = jogo.cena_Atual;
@@ -694,11 +697,13 @@ int apresentarCena(Game jogo){
 			case("use"):
 			case("USE"):
 				funcao_use(jogo,numero_cena,comando);
+				verifica_Vida(jogo);
 				break;
 
 			case("get"):
 			case("GET"):
 				funcao_get(jogo,numero_cena,comando);
+				verifica_Vida(jogo);
 				break;
 
 			case("inventory"):
@@ -726,13 +731,19 @@ int apresentarCena(Game jogo){
 				funcao_quit();
 				break;
 
+			case("newgame"):
+			case("NEWGAME"):
+				funcao_newGame(jogo);
+				break;
+
 			default:
 				writefln("Comando Invalido!");
 				esperarSegundos(1);
 				break;	
 		}
+
 	}
-	return 0;
+	return jogo.cena_Atual;
 }
 
 void combinar_Itens(Game jogo, string comando){
@@ -844,229 +855,20 @@ void main(){
 	int cena=0;
 	IniciarlizarCenas(jogo);
 	
-	/*string musicaAmbiente = "sjogo.vetor_Cenas[numero_cena]oundEffects/ambientMusic.mp3";
 
-	if(testaSom()){
+	try{
+		string musicaAmbiente = "soundEffects/ambientMusic.mp3";
 		soundPlayerAmbiente(musicaAmbiente);
-	} else {
+	}catch{
 		write("mpg123 nao localizado no sistema!. Os sons do jogo nao serao reproduzidos! ");
-	}*/	
+	}	
 
 
-	while(cena != 11){
+	while(cena != 12){
 		limparTela();
+		verifica_Vida(jogo);
 		cena = apresentarCena(jogo);
 	}
 
+	killSound();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/*for(int k=0;k<jogo.vetor_Cenas[numero_cena].tamanhoCaminhos;k++){
-		addSom(numero_cena);
-		if (jogo.vetor_Cenas[numero_cena].caminhos[k].ver_Opcao == true){
-			if(numero_cena==18 && (k==4 || k==5 || k==6)){
-				soundPlayer("soundEffects/magnum.mp3");
-			}else if(numero_cena==14 &&(k==1)){
-				soundPlayer("soundEffects/tosse.mp3");
-			}
-			writef("\t%s ",jogo.vetor_Cenas[numero_cena].caminhos[k].opcao);
-		}
-	}*/
-
-
-
-/*
-//	if (jogo.vetor_Cenas[numero_cena].recebe_Dano == true){
-	//	receber_Dano(jogo,numero_cena);	
-//	}	
-
-	writef("\n\t\t\t\t\t\t\t\tVida: %d",jogo.vida);
-	writefln("\n\t\t\t\t\t\t\t\tPressione \"V\" para ver o Invetario ");
-	writef("\n\t\t\t\t\t\t\t\tPressione \"Q\" para sair do Jogo! ");
-
-	if (jogo.vetor_Cenas[numero_cena].tamanhoCaminhos != 0){
-		writef("\nOpcao: ");
-		stdout.flush();
-		scanf("%s", &entradaTeclado);
-
-
-			switch(entradaTeclado){
-				case('A'):
-				case('a'):
-					entradaTecladoConvertido = 0;
-					break;
-
-				case('B'):
-				case('b'):
-					entradaTecladoConvertido = 1;
-					break;
-
-				case('C'):
-				case('c'):
-					entradaTecladoConvertido = 2;
-					break;
-
-				case('D'):
-				case('d'):
-					entradaTecladoConvertido = 3;
-					break;
-
-				case('E'):
-				case('e'):
-					entradaTecladoConvertido = 4;
-					break;
-
-				case('F'):
-				case('f'):
-					entradaTecladoConvertido = 5;
-					break;
-
-				case('G'):
-				case('g'):
-					entradaTecladoConvertido = 6;
-					break;
-
-				case('H'):
-				case('h'):
-					entradaTecladoConvertido = 7;
-					break;
-
-				case('V'):
-				case('v'):
-					verInventario(jogo);
-					break;
-
-				case('Q'):
-				case('q'):
-					sair_Jogo();
-					break;
-				
-				default:
-					writefln("Caractere Invalido!");
-
-			}
-
-			if (entradaTecladoConvertido != -1){
-				//chamada para outros cenarios
-				if (jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].prox_cena != -1){
-					if (jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].prox_cena != -2){
-						jogo.cena_Atual = jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].prox_cena;
-					}
-				}
-
-				//chamada para cenas invalidas
-				if (jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].prox_cena == -1){
-					if (jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].mensagem != null){
-						writefln ("\n %s",jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].mensagem);
-						Thread.sleep(dur!("seconds")( 2 ));
-					}
-				}
-				//chamada para itens
-				if (jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].prox_cena == -2){
-					jogo.vetor_Cenas[numero_cena].caminhos[entradaTecladoConvertido].ver_Opcao = false;
-
-					writefln("Item Adquirido: %s \n",jogo.vetor_Cenas[numero_cena].item[entradaTecladoConvertido].nome);
-					Thread.sleep(dur!("seconds")( 3 ));
-				}
-			}
-
-	}*/
-	//return 0;
-//}
-
-
-
-/*
-void receber_Dano(Game jogo,int numero_cena){
-	writefln("\n\n\n<DANO -%d>",jogo.vetor_Cenas[numero_cena].dano[0]);
-	jogo.vida = jogo.vida - jogo.vetor_Cenas[numero_cena].dano[0];
-	jogo.vetor_Cenas[numero_cena].receber_Dano = false;
-}*/
-
-/*
-int combinar_Itens(Game jogo){
-	int aux_teclado1;
-	int aux_teclado2;
-
-	stdout.flush();
-	scanf("ID item1: %d", &aux_teclado1);
-	stdout.flush();	
-	scanf("ID item2: %d", &aux_teclado2);
-}*/
-
-/*
-void verInventario(Game jogo){
-	char teclado;
-
-	while((teclado != 'q') && (teclado != 'Q')){	
-		writefln("Aperte \"Q\" para sair!");
-		writefln("Aperte \"C\" para combinar itens!");
-
-		writefln("\nItens: \n\n");
-			for(int i=0;i<jogo.bolsa.qtd_Inventario;i++){
-				writef("\tNome: %s\n",jogo.bolsa.itensObtidos[i].nome);
-				writef("\tTexto: %s\n",jogo.bolsa.itensObtidos[i].texto);
-				writef("\tDescricao: %s\n",jogo.bolsa.itensObtidos[i].descricao);
-		}
-
-		switch(teclado){
-			case('C'):
-			case('c'):
-				combinar_Itens(jogo);
-
-
-
-			break;
-
-		}
-			
-	}
-}*/
-
-/*
-void adicionarInventario(Game jogo,Itens itemAdquirido){
-	jogo.bolsa.itensObtidos[jogo.bolsa.qtd_Inventario] = itemAdquirido;
-	jogo.bolsa.qtd_Inventario++;
-}*/
-
-
-
-
-
-
-
-
-
-
-
-
-	/*for(int i=0;i<=22;i++){
-		writef("Titulo: %s",jogo.vetor_Cenas[i].titulo);
-
-		for(int j=0;j<jogo.vetor_Cenas[i].tamanhoItem;j++){
-			writef("Itens: %s, %d\n",jogo.vetor_Cenas[i].item[j].nome,jogo.vetor_Cenas[i].item[j].id);
-		}
-		writef("Descricao: %s",jogo.vetor_Cenas[i].descricao);
-
-		for(int k=0;k<jogo.vetor_Cenas[i].tamanhoCaminhos;k++){
-			writef("%s ",jogo.vetor_Cenas[i].caminhos[k].opcao);
-			writef("%s ",jogo.vetor_Cenas[i].caminhos[k].mensagem);
-			writef("\tProxima Cena: %d \n",jogo.vetor_Cenas[i].caminhos[k].prox_cena);
-		}
-
-		writefln("\n\n\n\n");
-
-	}*/
-
-
