@@ -5,6 +5,8 @@ import core.stdc.time;
 import core.thread;
 import std.string;
 import std.file;
+import std.conv;
+import std.array;
 
 
 class Game{
@@ -53,7 +55,7 @@ void IniciarlizarCenas(Game jogo){
 	jogo.cena_Atual = 0;
 	jogo.bolsa = new Inventario();
 	jogo.bolsa.qtd_Inventario = 0;
-	jogo.vida = 10;
+	jogo.vida = 5;
 
 	Alternativas altern00;
 	Alternativas altern01;
@@ -542,19 +544,21 @@ void funcao_invetory(Game jogo, int numero_cena){
 
 	while(comando != "quit"){
 		limparTela();
-		writefln("\n\n\tInventario \n");
+		writefln("\n\nInventario \n");
 
-		writefln("\n\tItens: ");
-		ver_Inventario(jogo);
-
+		if(jogo.bolsa.qtd_Inventario != 0){
+			writefln("\n\tItens: ");
+			ver_Inventario(jogo);
+		}
+		else{
+			writefln("\n\tA bolsa esta vazia!");
+		}
 		writef("\ninventario/>");
 		comando = strip(stdin.readln());
 
 		writef("\n\n\n");
 
 		auto comando_split = comando.split(" ");
-
-
 		if (comando_split.length > 1){
 			switch(comando_split.length){
 				case(4):
@@ -608,9 +612,13 @@ void funcao_save(Game jogo, int numero_cena, string comando){
 
 		arquivo.writeln(numero_cena);
 
+		arquivo.writeln(jogo.vida);
+
 		for (int i=0; i<jogo.bolsa.qtd_Inventario; i++){
 			arquivo.write(jogo.bolsa.itensObtidos[i].id," ");
 		}
+
+		arquivo.writeln("");
 
 		writefln("\n\tJogo gravado com Sucesso!");
 		esperarSegundos(2);
@@ -622,10 +630,45 @@ void funcao_save(Game jogo, int numero_cena, string comando){
 }
 
 void funcao_load(Game jogo, int numero_cena, string comando){
+	auto comando_split = comando.split(" ");
+	
 	if (comando_split.length == 1){
-			
-	}
+		auto arquivo = File("Save/Save.txt", "r+");
 
+		auto load_NumeroCena = arquivo.readln('\n');
+		auto load_vida = arquivo.readln('\n');
+		auto load_ItensInventario = arquivo.readln('\n');
+		jogo.bolsa = new Inventario();
+
+		int int_LoadNumeroCena = to!int(load_NumeroCena.replace("\n",""));		
+		int int_LoadVida = to!int(load_vida.replace("\n",""));
+
+		load_ItensInventario = load_ItensInventario.replace("\n"," ");
+		int[] int_LoadItensInvetario = to!(int[]) (split(load_ItensInventario));
+
+
+		jogo.cena_Atual = int_LoadNumeroCena;
+		jogo.vida = int_LoadVida;
+
+		for (int i=0;i<jogo.qtd_ItensJogo;i++){
+			for (int j=0;j<int_LoadItensInvetario.length;j++){
+				
+				if (jogo.itensJogo[i].id == int_LoadItensInvetario[j]){	
+					Itens aux_item = new Itens();
+
+					aux_item = jogo.itensJogo[i];
+					jogo.bolsa.itensObtidos[jogo.bolsa.qtd_Inventario] = aux_item;
+					jogo.bolsa.qtd_Inventario++;	
+				}
+			}
+		}
+		writefln("\nJogo Carregado com Sucesso!");
+		esperarSegundos(1);
+	}
+	else{
+		writefln("Comand Invalido!");
+		esperarSegundos(1);
+	}
 }
 
 
@@ -755,7 +798,7 @@ void combinar_Itens(Game jogo, string comando){
 
 void ver_Inventario(Game jogo){
 	for(int i=0;i<jogo.bolsa.qtd_Inventario;i++){
-		writef("\t\tNome: %s\n",jogo.bolsa.itensObtidos[i].nome);
+		writef("\t\tNome: %s	(%d)\n",jogo.bolsa.itensObtidos[i].nome,jogo.bolsa.itensObtidos[i].id);
 		writefln("\t\tDescricao: %s\n\n",jogo.bolsa.itensObtidos[i].descricao);
 	}
 }
@@ -812,7 +855,6 @@ void main(){
 
 	while(cena != 11){
 		limparTela();
-		
 		cena = apresentarCena(jogo);
 	}
 
