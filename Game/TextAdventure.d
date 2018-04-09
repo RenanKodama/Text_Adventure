@@ -163,7 +163,7 @@ void IniciarlizarCenas(Game jogo){
 		altern00.mensagem = "....";
 		altern00.prox_cena = 07;
 
-	cena03.somCena = "";
+	cena03.somCena = null;
 	cena03.tamanhoCaminhos = 01;
 	cena03.tamanhoItem = 00;
 	cena03.caminhos[0] = altern00;
@@ -184,7 +184,7 @@ void IniciarlizarCenas(Game jogo){
 		altern00.mensagem = "Essa luz me conforta....";
 		altern00.prox_cena = 07;
 
-	cena04.somCena = "";
+	cena04.somCena = null;
 	cena04.tamanhoCaminhos = 01;
 	cena04.tamanhoItem = 00;
 	cena04.caminhos[0] = altern00;
@@ -198,6 +198,7 @@ void IniciarlizarCenas(Game jogo){
 	cena06.descricao = 	"\t\t << Voce Morreu! >> \n"~
 						"\t\t\t      GAME OVER ! \n\n\n";
 
+	cena06.somCena = "soundEffects/morrendo.mp3";
 	cena06.tamanhoCaminhos = 00;
 	cena06.tamanhoItem = 00;
 
@@ -230,6 +231,7 @@ void IniciarlizarCenas(Game jogo){
 		altern04.mensagem = null;
 		altern04.prox_cena = 11;
 
+	cena07..somCena = null;
 	cena07.tamanhoCaminhos = 05;
 	cena07.tamanhoItem = 00;
 	cena07.caminhos[0] = altern00;
@@ -263,7 +265,7 @@ void IniciarlizarCenas(Game jogo){
 		altern02.mensagem = null;
 		altern02.prox_cena = 07;
 
-
+	cena08.somCena = null;
 	cena08.tamanhoCaminhos = 03;
 	cena08.tamanhoItem = 00;
 	cena08.caminhos[0] = altern00;
@@ -303,6 +305,7 @@ void IniciarlizarCenas(Game jogo){
 		altern02.mensagem = "Talvez isso possa ser util para algo ....";
 		altern02.prox_cena = -2;
 
+	cena09.somCena = null;
 	cena09.tamanhoCaminhos = 03;
 	cena09.tamanhoItem = 01;
 	cena09.caminhos[0] = altern00;
@@ -354,6 +357,8 @@ void IniciarlizarCenas(Game jogo){
 		altern03.mensagem = "Talvez ele possa ser util";
 		altern03.prox_cena = -2;
 
+
+	cena10.somCena = null;
 	cena10.tamanhoCaminhos = 04;
 	cena10.tamanhoItem = 02;
 	cena10.caminhos[0] = altern00;
@@ -373,6 +378,7 @@ void IniciarlizarCenas(Game jogo){
 
 		altern00 = new Alternativas();
 
+	cena11.somCena = null;
 	cena11.tamanhoCaminhos = 01;
 	cena11.tamanhoItem = 00;
 	cena11.caminhos[0] = altern00;
@@ -685,7 +691,10 @@ int apresentarCena(Game jogo){
 
 	recebe_Dano(jogo,numero_cena);
 	writef("\n\t\t\t\t\t\t\t\t\t\t\tVida: %d\n\n\n",jogo.vida);
-
+	
+	if(jogo.vetor_Cenas[numero_cena].somCena!=null){
+		soundPlayer(jogo.vetor_Cenas[numero_cena].somCena);
+	}
 
 	writef("/<");
 
