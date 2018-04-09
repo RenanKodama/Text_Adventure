@@ -231,7 +231,7 @@ void IniciarlizarCenas(Game jogo){
 		altern04.mensagem = null;
 		altern04.prox_cena = 11;
 
-	cena07..somCena = null;
+	cena07.somCena = null;
 	cena07.tamanhoCaminhos = 05;
 	cena07.tamanhoItem = 00;
 	cena07.caminhos[0] = altern00;
