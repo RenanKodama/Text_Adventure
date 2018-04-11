@@ -370,19 +370,37 @@ void IniciarlizarCenas(Game jogo){
 
 	Cenas cena11 = new Cenas();
 	cena11.id = 11;
-	cena11.titulo = "O Fim 	\n";
+	cena11.titulo = "Esperança ou Ilusao? 	\n";
 	cena11.item = null;
 	cena11.descricao = 	"\tAo entrar na casa voce sente a presença do mal e a escuridao começa a te envolver, enquanto seu 			\n"~
-						"\t\tcoraçao começa a pulsar voce sente sua visao ficando cada vez mais turva ate que voce desmaia e cai 		\n"~
-						"\t\tsobre o chao. Alguns momentos depois voce acorda e esta em um lugar totalmente diferente e escuro ....  \n\n\n";
+						"\t\tcoraçao começa a pulsar voce sente sua visao ficando cada vez mais turva ate que voce desmaia e cai 	\n"~
+						"\t\tsobre o chao. Alguns momentos depois voce acorda e esta em um lugar totalmente diferente e escuro,		\n"~
+						"\t\tParalizado voce so consegue ANDAR ....  \n\n\n";
 
 		altern00 = new Alternativas();
+		altern00.opcao = "use andar";
+		altern00.mensagem = "Seria uma boa ideia...ou nao....";
+		altern00.prox_cena = 12;
 
 	cena11.somCena = null;
 	cena11.tamanhoCaminhos = 01;
 	cena11.tamanhoItem = 00;
 	cena11.caminhos[0] = altern00;
 
+//---------------------------------------------------------------------------------------------------------------------------
+	
+	Cenas cena12 = new Cenas();
+	cena12.id = 11;
+	cena12.titulo = "Esperança ou Ilusao? 	\n";
+	cena12.item = null;
+	cena12.descricao = 	"\tParabens voce chegou ao fim do Jogo! voce pode recomeçar com o new \n\n\n";
+
+		altern00 = new Alternativas();
+
+	cena12.somCena = null;
+	cena12.tamanhoCaminhos = 00;
+	cena12.tamanhoItem = 00;
+	cena12.caminhos[0] = altern00;
 //---------------------------------------------------------------------------------------------------------------------------
 	jogo.vetor_Cenas[0] = cena00;
 	jogo.vetor_Cenas[1] = cena01;
@@ -546,7 +564,7 @@ void funcao_get(Game jogo, int numero_cena, string comando){
 void funcao_invetory(Game jogo, int numero_cena){
 	string comando;
 
-	while(comando != "quit"){
+	while(comando != "exit"){
 		limparTela();
 		writefln("\n\nInventario \n");
 
@@ -566,7 +584,7 @@ void funcao_invetory(Game jogo, int numero_cena){
 		if (comando_split.length > 1){
 			switch(comando_split.length){
 				case(4):
-					if(comando_split[0] == "use" && comando_split[2] == "with"){
+					if(comando_split[0] == "combine" && comando_split[2] == "with"){
 						combinar_Itens(jogo,comando);
 					}	
 					else{
@@ -678,6 +696,12 @@ void funcao_newGame(Game jogo){
 	IniciarlizarCenas(jogo);
 }
 
+void funcao_help(){
+	writefln("\n\nListas de comandos do jogo!\n\n");
+
+
+}
+
 void verifica_Vida(Game jogo){
 	if(jogo.vida == 0){
 		jogo.cena_Atual = 06;
@@ -747,6 +771,11 @@ int apresentarCena(Game jogo){
 			case("newgame"):
 			case("NEWGAME"):
 				funcao_newGame(jogo);
+				break;
+
+			case("help"):
+			case("HELP"):
+				funcao_help();
 				break;
 
 			default:
@@ -881,5 +910,6 @@ void main(){
 		verifica_Vida(jogo);
 		cena = apresentarCena(jogo);
 	}
+
 	killSound();
 }
