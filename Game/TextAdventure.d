@@ -451,6 +451,9 @@ void limparTela(){
 }
 
 void funcao_quit(){
+	writefln("\n Finalizando operaçoes aguarde ....");
+	esperarSegundos(3);
+
 	killSound();	
 	exit(0);
 }
