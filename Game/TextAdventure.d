@@ -452,7 +452,7 @@ void limparTela(){
 
 void funcao_quit(){
 	writefln("\n Finalizando operaçoes aguarde ....");
-	esperarSegundos(3);
+	esperarSegundos(2);
 
 	killSound();	
 	exit(0);
@@ -693,6 +693,7 @@ int apresentarCena(Game jogo){
 	writef("Descricao: %s",jogo.vetor_Cenas[numero_cena].descricao);
 
 	recebe_Dano(jogo,numero_cena);
+	
 	writef("\n\t\t\t\t\t\t\t\t\t\t\tVida: %d\n\n\n",jogo.vida);
 	
 	if(jogo.vetor_Cenas[numero_cena].somCena!=null){
@@ -753,7 +754,6 @@ int apresentarCena(Game jogo){
 				esperarSegundos(1);
 				break;	
 		}
-
 	}
 	return jogo.cena_Atual;
 }
@@ -881,6 +881,5 @@ void main(){
 		verifica_Vida(jogo);
 		cena = apresentarCena(jogo);
 	}
-
 	killSound();
 }
