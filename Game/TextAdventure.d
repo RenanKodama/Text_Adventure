@@ -420,16 +420,14 @@ void combinar_Itens(Game jogo, string comando){
 		}
 		else{
 			writefln("Combinaçao Invalida!");
+			esperarSegundos(1);
 		}
 	}
 	else{
 		writefln("Item nao disponivel no Inventario!");
 		esperarSegundos(1);
 	}
-
-
 }
-
 
 void ver_Inventario(Game jogo){
 	for(int i=0;i<jogo.bolsa.qtd_Inventario;i++){
@@ -437,7 +435,6 @@ void ver_Inventario(Game jogo){
 		writefln("\t\tDescricao: %s\n\n",jogo.bolsa.itensObtidos[i].descricao);
 	}
 }
-
 
 void recebe_Dano(Game jogo,int numero_cena){
 	if (jogo.vetor_Cenas[numero_cena].recebe_Dano == true){
