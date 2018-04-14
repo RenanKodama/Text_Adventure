@@ -126,7 +126,7 @@ bool funcao_use(Game jogo, int numero_cena, string comando){
 
 void funcao_get(Game jogo, int numero_cena, string comando){
 	auto comando_split = comando.split(" ");
-
+	soundPlayer("soundEffects/gotItem.mp3");
 	switch(comando_split.length){
 		case(2):
 
