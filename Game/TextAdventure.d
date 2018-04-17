@@ -368,6 +368,19 @@ int apresentarCena(Game jogo){
 				funcao_help();
 				break;
 
+			case("combine"):
+			case("COMBINE"):
+				if(first_argument.length > 1){
+					if(first_argument[0] == "combine" && first_argument[2] == "with"){
+						combinar_Itens(jogo,comando);
+					}
+					else{
+						writefln("Comando Invalido");
+						esperarSegundos(1);
+					}
+				}
+				break;
+		
 			default:
 				writefln("Comando Invalido!");
 				esperarSegundos(1);
@@ -438,7 +451,7 @@ void combinar_Itens(Game jogo, string comando){
 
 void ver_Inventario(Game jogo){
 	for(int i=0;i<jogo.bolsa.qtd_Inventario;i++){
-		writef("\t\tNome: %s	(%d)\n",jogo.bolsa.itensObtidos[i].nome,jogo.bolsa.itensObtidos[i].id);
+		writef("\t\tNome: %s	(id: %d)\n",jogo.bolsa.itensObtidos[i].nome,jogo.bolsa.itensObtidos[i].id);
 		writefln("\t\tDescricao: %s\n\n",jogo.bolsa.itensObtidos[i].descricao);
 	}
 }
