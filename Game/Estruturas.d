@@ -127,7 +127,7 @@ void IniciarlizarCenas(Game jogo){
 		altern01.mensagem = "Sera que ganho dele? ....";
 		altern01.prox_cena = 06;
 
-	cena02.somCena = null;
+	cena02.somCena = "soundEffects/monsterHitScream.mp3";
 	cena02.tamanhoCaminhos = 02;
 	cena02.tamanhoItem = 00;
 	cena02.caminhos[0] = altern00;
@@ -150,7 +150,7 @@ void IniciarlizarCenas(Game jogo){
 		altern00.mensagem = "....";
 		altern00.prox_cena = 07;
 
-	cena03.somCena = null;
+	cena03.somCena = "soundEffects/runningFalling.mp3";
 	cena03.tamanhoCaminhos = 01;
 	cena03.tamanhoItem = 00;
 	cena03.caminhos[0] = altern00;
