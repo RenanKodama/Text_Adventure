@@ -284,12 +284,13 @@ void funcao_help(){
 	writeln(" use: comano para interagir/usar os objetos");
 	writeln(" get: utilizado para pegar um objeto cena");
 	writeln(" inventory: abre o inventário do jogo, para sair digite exit");
-	writeln(" \tDentro do inventário, abilita-se o comano combine usado para combinar itens. combine ITEM with ITEM");
 	writeln(" check: da informações sobre um objeto da cena");
 	writeln(" save: salva o jogo atual mantendo o inventário");
 	writeln(" load: carrega o jogo salvo anteriormente");
 	writeln(" quit: sai do jogo");
+	writeln(" \t**Dentro do inventário, abilita-se o comano combine usado para combinar itens. combine ITEM with ITEM");
 
+	esperarSegundos(7);
 }
 
 void verifica_Vida(Game jogo){
