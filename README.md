@@ -2,8 +2,11 @@
                             Universidade Tecnológica Federal do Paraná
 
 Disciplina  - BCC35A - Linguagens de Programação (IC5A)
+
 Projeto01   - Jogo no estilo TextAdventure
+
 Linguagem   - D langue
+
 Grupo       - Clodoaldo Basaglia da Fonseca 968692 & Renan Kodama Rodrigues 1602098     
 
 
