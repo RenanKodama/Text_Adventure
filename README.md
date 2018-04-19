@@ -10,6 +10,8 @@ Linguagem   - D langue
 Grupo       - Clodoaldo Basaglia da Fonseca 968692 & Renan Kodama Rodrigues 1602098     
 
 
+
+
 Descrição:
 
     Criação de um jogo no estilo text adventure na linguagem D, foi utilizado o compilador
